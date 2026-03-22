@@ -314,17 +314,65 @@ export const SEED_PEOPLE: Person[] = [
 ];
 
 export const SEED_SPECIAL_DAYS: SpecialDay[] = [
+  // January
   { id: 'new_year', name: 'New Year', date: '01-01', month: 1, day: 1, description: 'New Year celebrations', scope: 'international', tags: ['festive', 'upbeat'], suggestedThemes: ['Fresh start melodies'] },
   { id: 'republic_day', name: 'Republic Day', date: '01-26', month: 1, day: 26, description: 'India Republic Day', scope: 'india', tags: ['patriotic'], suggestedThemes: ['Patriotic songs'] },
+
+  // February
   { id: 'valentines', name: "Valentine's Day", date: '02-14', month: 2, day: 14, description: 'Day of love', scope: 'international', tags: ['romantic'], suggestedThemes: ['Romantic melodies'] },
+
+  // March
   { id: 'womens_day', name: "International Women's Day", date: '03-08', month: 3, day: 8, description: 'Celebrating women worldwide', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Songs celebrating women'] },
+  { id: 'happiness_day', name: 'International Day of Happiness', date: '03-20', month: 3, day: 20, description: 'UN day promoting happiness as a universal goal', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Feel-good songs'] },
+  { id: 'forest_day', name: 'International Day of Forests', date: '03-21', month: 3, day: 21, description: 'Celebrating the vital role of forests', scope: 'international', tags: ['peace'], suggestedThemes: ['Nature-inspired melodies'] },
+  { id: 'world_water_day', name: 'World Water Day', date: '03-22', month: 3, day: 22, description: 'Raising awareness about freshwater resources', scope: 'international', tags: ['peace'], suggestedThemes: ['Rain and river songs'] },
+  { id: 'world_theatre_day', name: 'World Theatre Day', date: '03-27', month: 3, day: 27, description: 'Celebrating the art of theatre', scope: 'international', tags: ['melody', 'classical'], suggestedThemes: ['Drama and stage songs'] },
   { id: 'ugadi', name: 'Ugadi / Gudi Padwa', date: '03-30', month: 3, day: 30, description: 'Telugu & Kannada New Year (approx)', scope: 'regional', tags: ['festive'], suggestedThemes: ['Festive Telugu/Kannada songs'] },
-  { id: 'world_music_day', name: 'World Music Day', date: '06-21', month: 6, day: 21, description: 'Fête de la Musique', scope: 'international', tags: ['melody', 'classical'], suggestedThemes: ['Classical renditions'] },
+
+  // April
+  { id: 'world_health_day', name: 'World Health Day', date: '04-07', month: 4, day: 7, description: 'WHO global health awareness day', scope: 'international', tags: ['peace'], suggestedThemes: ['Healing melodies'] },
+  { id: 'earth_day', name: 'Earth Day', date: '04-22', month: 4, day: 22, description: 'Annual event supporting environmental protection', scope: 'international', tags: ['peace', 'folk'], suggestedThemes: ['Nature songs'] },
+  { id: 'world_book_day', name: 'World Book Day', date: '04-23', month: 4, day: 23, description: 'UNESCO day promoting reading and publishing', scope: 'international', tags: ['peace'], suggestedThemes: ['Literary-inspired music'] },
+  { id: 'world_dance_day', name: 'International Dance Day', date: '04-29', month: 4, day: 29, description: 'Celebrating dance as an art form', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Dance numbers'] },
+
+  // May
+  { id: 'labour_day', name: 'International Labour Day', date: '05-01', month: 5, day: 1, description: 'Workers Day worldwide', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Songs of the working spirit'] },
+  { id: 'mothers_day', name: "Mother's Day", date: '05-11', month: 5, day: 11, description: 'Celebrating mothers (2nd Sunday of May)', scope: 'international', tags: ['melody', 'devotional'], suggestedThemes: ['Songs for Amma/Maa'] },
+  { id: 'world_sleep_day', name: 'World Sleep Day', date: '03-14', month: 3, day: 14, description: 'Promoting restful sleep worldwide', scope: 'international', tags: ['peace'], suggestedThemes: ['Lullaby melodies'] },
+
+  // June
+  { id: 'environment_day', name: 'World Environment Day', date: '06-05', month: 6, day: 5, description: 'UN principal vehicle for encouraging environmental awareness', scope: 'international', tags: ['peace', 'folk'], suggestedThemes: ['Nature and ecology songs'] },
+  { id: 'fathers_day', name: "Father's Day", date: '06-15', month: 6, day: 15, description: 'Celebrating fathers (3rd Sunday of June)', scope: 'international', tags: ['melody'], suggestedThemes: ['Songs for Nanna/Papa'] },
+  { id: 'world_music_day', name: 'World Music Day', date: '06-21', month: 6, day: 21, description: 'F\u00EAte de la Musique', scope: 'international', tags: ['melody', 'classical'], suggestedThemes: ['Classical renditions'] },
+  { id: 'yoga_day', name: 'International Yoga Day', date: '06-21', month: 6, day: 21, description: 'Celebrating the ancient practice of yoga', scope: 'international', tags: ['peace', 'devotional'], suggestedThemes: ['Meditation and peaceful ragas'] },
+
+  // July
+  { id: 'world_chocolate_day', name: 'World Chocolate Day', date: '07-07', month: 7, day: 7, description: 'Celebrating the sweet delight', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Sweet melodious songs'] },
+  { id: 'friendship_day', name: 'International Friendship Day', date: '07-30', month: 7, day: 30, description: 'UN day celebrating friendship', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Friendship songs'] },
+
+  // August
   { id: 'independence_day', name: 'Independence Day', date: '08-15', month: 8, day: 15, description: 'India Independence Day', scope: 'india', tags: ['patriotic'], suggestedThemes: ['Desh bhakti songs'] },
+
+  // September
   { id: 'teachers_day', name: "Teachers' Day", date: '09-05', month: 9, day: 5, description: "Dr. Radhakrishnan's Birthday", scope: 'india', tags: ['devotional', 'peace'], suggestedThemes: ['Guru vandana'] },
+  { id: 'world_peace_day', name: 'International Day of Peace', date: '09-21', month: 9, day: 21, description: 'UN day devoted to world peace', scope: 'international', tags: ['peace'], suggestedThemes: ['Peace and harmony songs'] },
+  { id: 'world_heart_day', name: 'World Heart Day', date: '09-29', month: 9, day: 29, description: 'Raising awareness about cardiovascular disease', scope: 'international', tags: ['melody'], suggestedThemes: ['Heartfelt melodies'] },
+
+  // October
   { id: 'gandhi_jayanti', name: 'Gandhi Jayanti', date: '10-02', month: 10, day: 2, description: "Mahatma Gandhi's Birthday", scope: 'india', tags: ['patriotic', 'peace'], suggestedThemes: ['Songs of peace'] },
+  { id: 'world_smile_day', name: 'World Smile Day', date: '10-03', month: 10, day: 3, description: 'Act of kindness day', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Happy and cheerful songs'] },
+  { id: 'world_mental_health_day', name: 'World Mental Health Day', date: '10-10', month: 10, day: 10, description: 'Raising awareness of mental health', scope: 'international', tags: ['peace', 'melody'], suggestedThemes: ['Soothing and calming music'] },
   { id: 'diwali', name: 'Diwali (approx)', date: '10-20', month: 10, day: 20, description: 'Festival of lights', scope: 'india', tags: ['festive'], suggestedThemes: ['Festival songs'] },
+  { id: 'halloween', name: 'Halloween', date: '10-31', month: 10, day: 31, description: 'Night of costumes and spooks', scope: 'international', tags: ['festive'], suggestedThemes: ['Thriller-inspired songs'] },
+
+  // November
+  { id: 'childrens_day', name: "Children's Day", date: '11-14', month: 11, day: 14, description: "Nehru's Birthday — Children's Day in India", scope: 'india', tags: ['upbeat'], suggestedThemes: ['Fun and playful songs'] },
+  { id: 'world_kindness_day', name: 'World Kindness Day', date: '11-13', month: 11, day: 13, description: 'Encouraging kindness worldwide', scope: 'international', tags: ['peace', 'melody'], suggestedThemes: ['Gentle, kind melodies'] },
+
+  // December
+  { id: 'human_rights_day', name: 'Human Rights Day', date: '12-10', month: 12, day: 10, description: 'UN day marking the Universal Declaration of Human Rights', scope: 'international', tags: ['peace', 'patriotic'], suggestedThemes: ['Songs of freedom'] },
   { id: 'christmas', name: 'Christmas', date: '12-25', month: 12, day: 25, description: 'Christmas Day', scope: 'international', tags: ['festive', 'peace'], suggestedThemes: ['Peaceful melodies'] },
+  { id: 'nye', name: "New Year's Eve", date: '12-31', month: 12, day: 31, description: 'Last day of the year celebrations', scope: 'international', tags: ['festive', 'upbeat'], suggestedThemes: ['Celebration and party songs'] },
 ];
 
 export const SEASON_CONFIG: SeasonConfig[] = [

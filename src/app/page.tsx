@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { WeekRange, ContextCard, DiscoveryFilters } from '@/lib/types';
 import { thisWeek } from '@/lib/dateUtils';
 import { generateContextCards } from '@/lib/contextEngine';
@@ -63,12 +64,20 @@ export default function Home() {
                 <p className="text-amber-100 text-xs">Find Your Song. Play. Post.</p>
               </div>
             </div>
-            <button
-              onClick={toggleSettings}
-              className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
-            >
-              &#x2699;&#xFE0F;
-            </button>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/almanac"
+                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
+              >
+                &#x1F4C5; Almanac
+              </Link>
+              <button
+                onClick={toggleSettings}
+                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
+              >
+                &#x2699;&#xFE0F;
+              </button>
+            </div>
           </div>
         </div>
       </header>
