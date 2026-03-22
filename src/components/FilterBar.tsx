@@ -59,10 +59,10 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
 
   return (
     <div className="space-y-3">
-      {/* Grid: 2-col on sm+, 1-col on mobile */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {/* Independent flowing blocks */}
+      <div className="flex flex-wrap gap-3">
         {/* Genre */}
-        <div className="rounded-lg bg-stone-50 p-3">
+        <div className="rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3">
           <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Genre</p>
           <div className="flex flex-wrap gap-1.5">
             {ALL_GENRES.map(g => (
@@ -72,7 +72,7 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
         </div>
 
         {/* Mood */}
-        <div className="rounded-lg bg-stone-50 p-3">
+        <div className="rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3">
           <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Mood</p>
           <div className="flex flex-wrap gap-1.5">
             {ALL_MOODS.map(m => (
@@ -82,7 +82,7 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
         </div>
 
         {/* Era */}
-        <div className="rounded-lg bg-stone-50 p-3">
+        <div className="rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3">
           <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Era</p>
           <div className="flex flex-wrap gap-1.5">
             {ALL_ERAS.map(e => (
@@ -91,23 +91,23 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
           </div>
         </div>
 
-        {/* Weather + Language — side by side in one cell */}
-        <div className="rounded-lg bg-stone-50 p-3 space-y-3">
-          <div>
-            <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Weather / Season</p>
-            <div className="flex flex-wrap gap-1.5">
-              {ALL_WEATHERS.map(w => (
-                <Chip key={w} label={`${WEATHER_ICONS[w]} ${w}`} value={w} active={filters.weather === w} onClick={(v: Weather) => set({ weather: toggle(filters.weather, v) })} />
-              ))}
-            </div>
+        {/* Weather */}
+        <div className="rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3">
+          <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Weather / Season</p>
+          <div className="flex flex-wrap gap-1.5">
+            {ALL_WEATHERS.map(w => (
+              <Chip key={w} label={`${WEATHER_ICONS[w]} ${w}`} value={w} active={filters.weather === w} onClick={(v: Weather) => set({ weather: toggle(filters.weather, v) })} />
+            ))}
           </div>
-          <div>
-            <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Language</p>
-            <div className="flex flex-wrap gap-1.5">
-              {ALL_LANGUAGES.map(l => (
-                <Chip key={l} label={l} value={l} active={filters.language === l} onClick={(v: Language) => set({ language: toggle(filters.language, v) })} />
-              ))}
-            </div>
+        </div>
+
+        {/* Language */}
+        <div className="rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3">
+          <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Language</p>
+          <div className="flex flex-wrap gap-1.5">
+            {ALL_LANGUAGES.map(l => (
+              <Chip key={l} label={l} value={l} active={filters.language === l} onClick={(v: Language) => set({ language: toggle(filters.language, v) })} />
+            ))}
           </div>
         </div>
       </div>

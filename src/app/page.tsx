@@ -57,7 +57,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-3xl">ðŸŽ¶</span>
+              <span className="text-3xl" role="img" aria-label="music">&#x1F3B6;</span>
               <div>
                 <h1 className="text-xl font-bold tracking-tight">MyOctaves</h1>
                 <p className="text-amber-100 text-xs">Find Your Song. Play. Post.</p>
@@ -67,7 +67,7 @@ export default function Home() {
               onClick={toggleSettings}
               className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
             >
-              âš™ï¸
+              &#x2699;&#xFE0F;
             </button>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function Home() {
           <p className="text-sm text-stone-600 leading-relaxed">
             Pick a <span className="font-semibold text-amber-700">genre</span>,
             <span className="font-semibold text-amber-700"> mood</span>, or
-            <span className="font-semibold text-amber-700"> vibe</span> â€” get a song to play with a ready-to-post caption.
+            <span className="font-semibold text-amber-700"> vibe</span> &mdash; get a song to play with a ready-to-post caption.
             <br className="hidden sm:block" />
             Songs linked to <span className="font-semibold text-amber-700">this week&apos;s birthdays &amp; milestones</span> are boosted to the top.
           </p>
@@ -96,8 +96,8 @@ export default function Home() {
         <div className="max-w-4xl mx-auto w-full px-4 mt-4">
           <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-semibold text-stone-700">âš™ï¸ Preferences</h2>
-              <button onClick={toggleSettings} className="text-stone-400 hover:text-stone-600 text-sm">âœ•</button>
+              <h2 className="text-sm font-semibold text-stone-700">&#x2699;&#xFE0F; Preferences</h2>
+              <button onClick={toggleSettings} className="text-stone-400 hover:text-stone-600 text-sm">&#x2715;</button>
             </div>
             <SettingsPanel onSave={refreshContext} />
           </div>
@@ -111,26 +111,24 @@ export default function Home() {
             onClick={() => setShowFilters(!showFilters)}
             className="flex items-center gap-2 mb-3 group"
           >
-            <span className="text-lg">ðŸŽ›ï¸</span>
+            <span className="text-lg">&#x1F39B;&#xFE0F;</span>
             <h2 className="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition">
               Filter &amp; Discover
             </h2>
-            <span className="text-xs text-stone-400">{showFilters ? 'â–¾' : 'â–¸'}</span>
+            <span className="text-xs text-stone-400">{showFilters ? '\u25BE' : '\u25B8'}</span>
           </button>
           {showFilters && (
-            <div className="rounded-xl bg-white border border-stone-200 p-4 shadow-sm">
-              <FilterBar filters={filters} onChange={handleFilterChange} matchCount={matchCount} />
-            </div>
+            <FilterBar filters={filters} onChange={handleFilterChange} matchCount={matchCount} />
           )}
         </section>
 
         {/* SONG RESULTS */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-lg">ðŸ’¡</span>
+            <span className="text-lg">&#x1F4A1;</span>
             <div>
               <h2 className="text-sm font-semibold text-stone-700">What to Play</h2>
-              <p className="text-xs text-stone-400">Tap any card to see its caption â€¢ â­ = relevant this week</p>
+              <p className="text-xs text-stone-400">Tap any card to see its caption &#x2022; &#x2B50; = relevant this week</p>
             </div>
           </div>
           <SongResults results={results} />
@@ -142,11 +140,11 @@ export default function Home() {
             onClick={() => setShowContext(!showContext)}
             className="flex items-center gap-2 mb-3 group"
           >
-            <span className="text-lg">ðŸŽµ</span>
+            <span className="text-lg">&#x1F3B5;</span>
             <h2 className="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition">
               Why This Week Is Special
             </h2>
-            <span className="text-xs text-stone-400">{showContext ? 'â–¾' : 'â–¸'}</span>
+            <span className="text-xs text-stone-400">{showContext ? '\u25BE' : '\u25B8'}</span>
             <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">{cards.length}</span>
           </button>
           {showContext && <ContextPanel cards={cards} />}
@@ -155,7 +153,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center py-4 text-xs text-stone-400 border-t border-stone-200">
-        <p>MyOctaves â€” Find your song, every week</p>
+        <p>MyOctaves &mdash; Find your song, every week</p>
         <p className="mt-1 text-stone-300">For musicians, content creators &amp; music lovers</p>
       </footer>
     </div>
