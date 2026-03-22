@@ -117,14 +117,14 @@ export const SEED_PEOPLE: Person[] = [
   {
     id: 'kv_mahadevan', name: 'K.V. Mahadevan',
     role: ['music_director', 'composer'], birthDate: '03-12', birthYear: 1918,
-    deathDate: '08-21', deathYear: 2001,
+    deathDate: '01-21', deathYear: 2001, // Note: some sources cite August 21
     languages: ['Telugu', 'Tamil', 'Kannada'],
     knownFor: 'Prolific South Indian film composer',
     isCurated: true,
   },
   {
     id: 'pendyala', name: 'Pendyala Nageswara Rao',
-    role: ['music_director', 'composer'], birthDate: '03-19', birthYear: 1924,
+    role: ['music_director', 'composer'], birthDate: '06-12', birthYear: 1924, // Note: some sources cite March 19
     deathDate: '05-17', deathYear: 1984,
     languages: ['Telugu'],
     knownFor: 'Classic Telugu film composer',
@@ -237,8 +237,8 @@ export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
 
   // March
   { id: 'mh_roja_release', title: 'Roja released', date: '08-15', year: 1992, description: 'A.R. Rahman\'s debut film Roja released, revolutionizing Indian film music forever.', scope: 'india', tags: ['melody'] },
-  { id: 'mh_sholay_music', title: 'R.D. Burman records "Mehbooba Mehbooba"', date: '03-15', year: 1975, description: 'One of Bollywood\'s most iconic songs was recorded for the blockbuster Sholay.', scope: 'india', tags: ['retro'] },
-  { id: 'mh_rock_hall', title: 'Rock & Roll Hall of Fame established', date: '03-21', year: 1983, description: 'The Rock & Roll Hall of Fame Foundation was established in New York.', scope: 'world', tags: ['retro'] },
+  { id: 'mh_alam_ara', title: 'Alam Ara — India\'s first talkie released', date: '03-14', year: 1931, description: 'India\'s first sound film, directed by Ardeshir Irani, premiered at Majestic Cinema in Bombay, launching Indian cinema\'s golden era.', scope: 'india', tags: ['retro', 'classical'] },
+  { id: 'mh_bach_born', title: 'Johann Sebastian Bach born', date: '03-21', year: 1685, description: 'One of the greatest composers in the history of Western music was born in Eisenach, Germany.', scope: 'world', tags: ['classical'] },
   { id: 'mh_beethoven_debut', title: 'Beethoven performs his first public concert in Vienna', date: '03-29', year: 1795, description: 'Ludwig van Beethoven made his public debut as a pianist in Vienna, performing his Piano Concerto No. 2.', scope: 'world', tags: ['classical'] },
 
   // April
@@ -262,7 +262,8 @@ export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
   // August
   { id: 'mh_woodstock', title: 'Woodstock Festival begins', date: '08-15', year: 1969, description: 'The iconic Woodstock Music Festival began in Bethel, New York — 400,000 people, 3 days of peace & music.', scope: 'world', tags: ['folk', 'retro'] },
   { id: 'mh_kishore_bday', title: 'Kishore Kumar born', date: '08-04', year: 1929, description: 'The most versatile voice of Bollywood was born in Khandwa, Madhya Pradesh.', scope: 'india', tags: ['melody', 'retro'] },
-  { id: 'mh_vande_mataram', title: 'Vande Mataram composed', date: '08-14', year: 1882, description: 'Bankim Chandra Chattopadhyay completed the iconic patriotic song that became India\'s national song.', scope: 'india', tags: ['patriotic'] },
+  { id: 'mh_mtv_launch', title: 'MTV launches', date: '08-01', year: 1981, description: 'MTV began broadcasting with "Video Killed the Radio Star," revolutionizing how the world consumed music.', scope: 'world', tags: ['retro', 'upbeat'] },
+  { id: 'mh_mughal_e_azam', title: 'Mughal-e-Azam released', date: '08-05', year: 1960, description: 'K. Asif\'s epic masterpiece with Naushad\'s legendary score released — featuring the immortal "Pyar Kiya To Darna Kya."', scope: 'india', tags: ['classical', 'melody'] },
 
   // September
   { id: 'mh_spb_passes', title: 'S.P. Balasubrahmanyam passes away', date: '09-25', year: 2020, description: 'Indian music lost one of its greatest voices — SPB sang in 16 languages with over 40,000 songs.', scope: 'india', tags: ['melody', 'sad'] },
@@ -275,7 +276,8 @@ export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
 
   // November
   { id: 'mh_spotify_launch', title: 'Spotify launches', date: '10-07', year: 2008, description: 'Spotify launched in Sweden, beginning the streaming revolution that changed how the world listens to music.', scope: 'world', tags: ['upbeat'] },
-  { id: 'mh_sagara_sangamam', title: 'Sagara Sangamam released', date: '11-22', year: 1983, description: 'Ilaiyaraaja\'s masterpiece score for this Telugu classic is considered one of the finest in Indian cinema.', scope: 'india', tags: ['classical', 'melody'] },
+  { id: 'mh_thriller_album', title: 'Michael Jackson\'s Thriller album released', date: '11-30', year: 1982, description: 'The best-selling album of all time was released, with 7 hit singles and over 70 million copies sold worldwide.', scope: 'world', tags: ['retro', 'upbeat'] },
+  { id: 'mh_arr_oscar', title: 'A.R. Rahman wins Oscar', date: '02-22', year: 2009, description: 'A.R. Rahman won two Academy Awards for Slumdog Millionaire — Best Original Score and Best Original Song ("Jai Ho").', scope: 'india', tags: ['melody', 'upbeat'] },
 
   // December
   { id: 'mh_beethoven_bday', title: 'Beethoven born', date: '12-16', year: 1770, description: 'Ludwig van Beethoven, one of the greatest composers in Western music history, was born in Bonn, Germany.', scope: 'world', tags: ['classical'] },

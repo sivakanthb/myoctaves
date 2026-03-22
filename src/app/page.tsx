@@ -13,10 +13,10 @@ import SettingsPanel from '@/components/SettingsPanel';
 type Tab = 'week' | 'suggest' | 'history' | 'settings';
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
-  { key: 'week', label: 'This Week', icon: '' },
-  { key: 'suggest', label: 'Suggestions', icon: '' },
-  { key: 'history', label: 'History', icon: '' },
-  { key: 'settings', label: 'Settings', icon: '' },
+  { key: 'week', label: 'This Week', icon: '🎵' },
+  { key: 'suggest', label: 'What to Play', icon: '💡' },
+  { key: 'history', label: 'My Posts', icon: '📝' },
+  { key: 'settings', label: 'Settings', icon: '⚙️' },
 ];
 
 export default function Home() {
@@ -49,7 +49,7 @@ export default function Home() {
       <header className="bg-gradient-to-r from-amber-600 to-orange-500 text-white">
         <div className="max-w-3xl mx-auto px-4 py-5">
           <div className="flex items-center gap-3">
-            <span className="text-3xl"></span>
+            <span className="text-3xl">🎶</span>
             <div>
               <h1 className="text-xl font-bold tracking-tight">MyOctaves</h1>
               <p className="text-amber-100 text-xs">Your Musical Week Planner</p>
@@ -58,8 +58,21 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Hero/Purpose — tells a layman what this app does */}
+      <div className="bg-gradient-to-b from-amber-50 to-stone-50 border-b border-amber-100">
+        <div className="max-w-3xl mx-auto px-4 py-4 text-center">
+          <p className="text-sm text-stone-600 leading-relaxed">
+            Every week has a musical story — <span className="font-semibold text-amber-700">birthdays of legends</span>,
+            <span className="font-semibold text-amber-700"> historic milestones</span>, and
+            <span className="font-semibold text-amber-700"> seasonal moods</span>.
+            <br className="hidden sm:block" />
+            Discover what&apos;s special this week and find inspiration for your next performance, reel, or playlist.
+          </p>
+        </div>
+      </div>
+
       {/* Week Nav */}
-      <div className="max-w-3xl mx-auto w-full px-4 -mt-4 relative z-10">
+      <div className="max-w-3xl mx-auto w-full px-4 mt-4 relative z-10">
         <WeekNav week={week} onChange={handleWeekChange} />
       </div>
 
@@ -84,17 +97,49 @@ export default function Home() {
 
       {/* Content */}
       <main className="max-w-3xl mx-auto w-full px-4 py-5 flex-1">
-        {tab === 'week' && <ContextPanel cards={cards} />}
-        {tab === 'suggest' && (
-          <SuggestPanel suggestions={suggestions} onStatusChange={handleSuggestionStatus} />
+        {tab === 'week' && (
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-lg">🎵</span>
+              <div>
+                <h2 className="text-sm font-semibold text-stone-700">This Week&apos;s Musical Occasions</h2>
+                <p className="text-xs text-stone-400">Birthdays, anniversaries, milestones & seasonal vibes</p>
+              </div>
+            </div>
+            <ContextPanel cards={cards} />
+          </div>
         )}
-        {tab === 'history' && <HistoryPanel />}
+        {tab === 'suggest' && (
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-lg">💡</span>
+              <div>
+                <h2 className="text-sm font-semibold text-stone-700">Suggested Themes to Play</h2>
+                <p className="text-xs text-stone-400">Based on this week&apos;s occasions — plan, post, or skip</p>
+              </div>
+            </div>
+            <SuggestPanel suggestions={suggestions} onStatusChange={handleSuggestionStatus} />
+          </div>
+        )}
+        {tab === 'history' && (
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-lg">📝</span>
+              <div>
+                <h2 className="text-sm font-semibold text-stone-700">Your Performance Log</h2>
+                <p className="text-xs text-stone-400">Track what you&apos;ve played, posted, or performed</p>
+              </div>
+            </div>
+            <HistoryPanel />
+          </div>
+        )}
         {tab === 'settings' && <SettingsPanel onSave={refresh} />}
       </main>
 
       {/* Footer */}
       <footer className="text-center py-4 text-xs text-stone-400 border-t border-stone-200">
-        MyOctaves  discover what to play each week
+        <p>MyOctaves — Know what&apos;s musically special every week</p>
+        <p className="mt-1 text-stone-300">For musicians, content creators & music lovers</p>
       </footer>
     </div>
   );

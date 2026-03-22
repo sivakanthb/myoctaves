@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyOctaves",
-  description: "Your Musical Week Planner  discover what to play each week based on birthdays, anniversaries, seasons & moods",
+  title: "MyOctaves — Your Musical Week Planner",
+  description: "Discover what's musically special every week — birthdays of legends, historic milestones, and seasonal moods. Get inspired for your next performance, reel, or playlist.",
 };
 
 export default function RootLayout({

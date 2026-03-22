@@ -40,6 +40,16 @@ const TAG_COLOR: Record<string, string> = {
   duet: 'bg-rose-100 text-rose-700',
 };
 
+const SECTION_LABEL: Record<string, string> = {
+  birthday: '🎂 Birthdays This Week',
+  death_anniversary: '🕯️ Remembering Legends',
+  special_day: '📅 Special Days',
+  historic_event: '📜 This Week in Music History',
+  seasonal: '☀️ Seasonal Mood',
+  mood: '🎭 Mood',
+  movie_release: '🎬 Film Releases',
+};
+
 interface Props {
   cards: ContextCard[];
 }
@@ -55,9 +65,27 @@ export default function ContextPanel({ cards }: Props) {
     );
   }
 
+  // Group cards by type, preserving display order
+  const typeOrder: string[] = ['birthday', 'death_anniversary', 'special_day', 'historic_event', 'seasonal', 'mood', 'movie_release'];
+  const grouped = new Map<string, ContextCard[]>();
+  for (const card of cards) {
+    const list = grouped.get(card.type) || [];
+    list.push(card);
+    grouped.set(card.type, list);
+  }
+
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {cards.map(card => (
+    <div className="space-y-6">
+      {typeOrder.map(type => {
+        const group = grouped.get(type);
+        if (!group || group.length === 0) return null;
+        return (
+          <section key={type}>
+            <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-2">
+              {SECTION_LABEL[type] || type}
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {group.map(card => (
         <div
           key={card.id}
           className={`rounded-xl bg-white border border-stone-200 border-l-4 ${BORDER_COLOR[card.type] || 'border-l-stone-300'} p-4 shadow-sm hover:shadow-md transition`}
@@ -92,7 +120,11 @@ export default function ContextPanel({ cards }: Props) {
             </div>
           </div>
         </div>
-      ))}
+              ))}
+            </div>
+          </section>
+        );
+      })}
     </div>
   );
 }
