@@ -226,7 +226,7 @@ export const SEASON_CONFIG: SeasonConfig[] = [
 // ============================================================
 export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
   // January
-  { id: 'mh_grammy_first', title: 'First Grammy Awards held', date: '01-04', year: 1959, description: 'The Recording Academy held its first ceremony at the Beverly Hilton Hotel in Los Angeles.', scope: 'world', tags: ['melody'] },
+  { id: 'mh_grammy_first', title: 'First Grammy Awards held', date: '05-04', year: 1959, description: 'The Recording Academy held its first ceremony at the Beverly Hilton Hotel in Los Angeles.', scope: 'world', tags: ['melody'] },
   { id: 'mh_elvis_bday', title: 'Elvis Presley born', date: '01-08', year: 1935, description: 'The King of Rock & Roll was born in Tupelo, Mississippi.', scope: 'world', tags: ['retro'] },
   { id: 'mh_arr_bday', title: 'A.R. Rahman born', date: '01-06', year: 1967, description: 'Oscar-winning composer A.R. Rahman, the Mozart of Madras, was born in Chennai.', scope: 'india', tags: ['melody'] },
 
@@ -236,23 +236,23 @@ export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
   { id: 'mh_lata_passes', title: 'Lata Mangeshkar passes away', date: '02-06', year: 2022, description: 'India\'s Nightingale, with over 25,000 songs, left an immortal legacy.', scope: 'india', tags: ['melody', 'sad'] },
 
   // March
-  { id: 'mh_roja_release', title: 'Roja released', date: '03-19', year: 1992, description: 'A.R. Rahman\'s debut film Roja released, revolutionizing Indian film music forever.', scope: 'india', tags: ['melody'] },
+  { id: 'mh_roja_release', title: 'Roja released', date: '08-15', year: 1992, description: 'A.R. Rahman\'s debut film Roja released, revolutionizing Indian film music forever.', scope: 'india', tags: ['melody'] },
   { id: 'mh_sholay_music', title: 'R.D. Burman records "Mehbooba Mehbooba"', date: '03-15', year: 1975, description: 'One of Bollywood\'s most iconic songs was recorded for the blockbuster Sholay.', scope: 'india', tags: ['retro'] },
   { id: 'mh_rock_hall', title: 'Rock & Roll Hall of Fame established', date: '03-21', year: 1983, description: 'The Rock & Roll Hall of Fame Foundation was established in New York.', scope: 'world', tags: ['retro'] },
   { id: 'mh_beethoven_debut', title: 'Beethoven performs his first public concert in Vienna', date: '03-29', year: 1795, description: 'Ludwig van Beethoven made his public debut as a pianist in Vienna, performing his Piano Concerto No. 2.', scope: 'world', tags: ['classical'] },
 
   // April
-  { id: 'mh_sgt_pepper', title: 'Beatles begin recording Sgt. Pepper\'s', date: '04-01', year: 1967, description: 'The Beatles started recording what would become one of the most influential albums in history.', scope: 'world', tags: ['retro'] },
-  { id: 'mh_mayabazar', title: 'Mayabazar released', date: '04-27', year: 1957, description: 'One of the greatest Indian films, with Ghantasala\'s legendary music, released in Telugu & Tamil.', scope: 'india', tags: ['classical', 'melody'] },
-  { id: 'mh_mtv_unplugged', title: 'MTV Unplugged premieres', date: '04-08', year: 1989, description: 'MTV Unplugged debuted, bringing acoustic performances to mainstream audiences.', scope: 'world', tags: ['melody'] },
+  { id: 'mh_sgt_pepper', title: 'Beatles complete Sgt. Pepper\'s final session', date: '04-01', year: 1967, description: 'The Beatles held their last recording session for Sgt. Pepper\'s Lonely Hearts Club Band, one of the most influential albums ever.', scope: 'world', tags: ['retro'] },
+  { id: 'mh_mayabazar', title: 'Mayabazar released', date: '03-27', year: 1957, description: 'One of the greatest Indian films, with Ghantasala\'s legendary music, released in Telugu & Tamil.', scope: 'india', tags: ['classical', 'melody'] },
+  { id: 'mh_mtv_unplugged', title: 'MTV Unplugged premieres', date: '11-26', year: 1989, description: 'MTV Unplugged debuted, bringing acoustic performances to mainstream audiences.', scope: 'world', tags: ['melody'] },
 
   // May
   { id: 'mh_bob_dylan_bday', title: 'Bob Dylan born', date: '05-24', year: 1941, description: 'Nobel Prize-winning songwriter Bob Dylan was born in Duluth, Minnesota.', scope: 'world', tags: ['folk'] },
-  { id: 'mh_devdas_release', title: 'Devdas (2002) released', date: '05-21', year: 2002, description: 'Ismail Darbar\'s magnificent score for Devdas premiered at Cannes Film Festival.', scope: 'india', tags: ['melody', 'classical'] },
+  { id: 'mh_devdas_release', title: 'Devdas (2002) premieres at Cannes', date: '05-23', year: 2002, description: 'Ismail Darbar\'s magnificent score for Devdas premiered at the Cannes Film Festival.', scope: 'india', tags: ['melody', 'classical'] },
 
   // June
   { id: 'mh_world_music_day', title: 'First World Music Day (Fête de la Musique)', date: '06-21', year: 1982, description: 'France launched the first Fête de la Musique, now celebrated in 120+ countries.', scope: 'world', tags: ['festive', 'melody'] },
-  { id: 'mh_spb_recording', title: 'S.P. Balasubrahmanyam\'s debut recording', date: '06-15', year: 1966, description: 'SPB recorded his first song "Sri Sri Sri Maryada Ramanna" for a Telugu film, starting a 40,000+ song career.', scope: 'india', tags: ['melody'] },
+  { id: 'mh_spb_recording', title: 'S.P. Balasubrahmanyam\'s debut recording', date: '12-15', year: 1966, description: 'SPB recorded his first song "Sri Sri Sri Maryada Ramanna" for a Telugu film, starting a 40,000+ song career.', scope: 'india', tags: ['melody'] },
   { id: 'mh_rdburman_bday', title: 'R.D. Burman born', date: '06-27', year: 1939, description: 'Pancham Da, who revolutionized Bollywood music with experimental sounds, was born in Kolkata.', scope: 'india', tags: ['retro'] },
 
   // July
@@ -274,7 +274,7 @@ export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
   { id: 'mh_kishore_passes', title: 'Kishore Kumar passes away', date: '10-13', year: 1987, description: 'Bollywood\'s most beloved voice fell silent on his birthday month, leaving a void never filled.', scope: 'india', tags: ['melody', 'sad'] },
 
   // November
-  { id: 'mh_spotify_launch', title: 'Spotify launches', date: '11-07', year: 2008, description: 'Spotify launched in Sweden, beginning the streaming revolution that changed how the world listens to music.', scope: 'world', tags: ['upbeat'] },
+  { id: 'mh_spotify_launch', title: 'Spotify launches', date: '10-07', year: 2008, description: 'Spotify launched in Sweden, beginning the streaming revolution that changed how the world listens to music.', scope: 'world', tags: ['upbeat'] },
   { id: 'mh_sagara_sangamam', title: 'Sagara Sangamam released', date: '11-22', year: 1983, description: 'Ilaiyaraaja\'s masterpiece score for this Telugu classic is considered one of the finest in Indian cinema.', scope: 'india', tags: ['classical', 'melody'] },
 
   // December
