@@ -30,6 +30,7 @@ export interface Person {
   deathYear?: number;
   languages: Language[];
   knownFor?: string; // brief note
+  achievements?: string[]; // key awards, records, contributions
   wikidataId?: string;
   imageUrl?: string;
   isCurated: boolean; // user-added override

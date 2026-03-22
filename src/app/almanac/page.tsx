@@ -137,12 +137,26 @@ export default function AlmanacPage() {
                 <p className="text-amber-100 text-xs">Birthdays &#x2022; Milestones &#x2022; Special Days &#x2022; Historic Events</p>
               </div>
             </div>
-            <Link
-              href="/"
-              className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
-            >
-              &#x1F3B6; Home
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/discover"
+                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
+              >
+                &#x1F4A1; Song Spark
+              </Link>
+              <Link
+                href="/people"
+                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
+              >
+                &#x1F3A4; Legends
+              </Link>
+              <Link
+                href="/"
+                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
+              >
+                &#x1F3E0; Home
+              </Link>
+            </div>
           </div>
         </div>
       </header>
