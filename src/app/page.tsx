@@ -1,34 +1,24 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { WeekRange, ContextCard, ThemeSuggestion } from '@/lib/types';
+import { WeekRange, ContextCard } from '@/lib/types';
 import { thisWeek } from '@/lib/dateUtils';
-import { generateContextCards, generateSuggestions } from '@/lib/contextEngine';
+import { generateContextCards, generatePlayThis, PlayThisCard } from '@/lib/contextEngine';
 import WeekNav from '@/components/WeekNav';
 import ContextPanel from '@/components/ContextPanel';
-import SuggestPanel from '@/components/SuggestPanel';
-import HistoryPanel from '@/components/HistoryPanel';
-import SettingsPanel from '@/components/SettingsPanel';
-
-type Tab = 'week' | 'suggest' | 'history' | 'settings';
-
-const TABS: { key: Tab; label: string; icon: string }[] = [
-  { key: 'week', label: 'This Week', icon: '🎵' },
-  { key: 'suggest', label: 'What to Play', icon: '💡' },
-  { key: 'history', label: 'My Posts', icon: '📝' },
-  { key: 'settings', label: 'Settings', icon: '⚙️' },
-];
+import PlayThisPanel from '@/components/PlayThisPanel';
 
 export default function Home() {
   const [week, setWeek] = useState<WeekRange>(thisWeek());
-  const [tab, setTab] = useState<Tab>('week');
   const [cards, setCards] = useState<ContextCard[]>([]);
-  const [suggestions, setSuggestions] = useState<ThemeSuggestion[]>([]);
+  const [playCards, setPlayCards] = useState<PlayThisCard[]>([]);
+  const [showSettings, setShowSettings] = useState(false);
+  const [SettingsPanel, setSettingsPanel] = useState<React.ComponentType<{ onSave: () => void }> | null>(null);
 
   const refresh = useCallback(() => {
     const c = generateContextCards(week);
     setCards(c);
-    setSuggestions(generateSuggestions(c));
+    setPlayCards(generatePlayThis(c));
   }, [week]);
 
   useEffect(() => { refresh(); }, [refresh]);
@@ -37,10 +27,12 @@ export default function Home() {
     setWeek(w);
   }
 
-  function handleSuggestionStatus(id: string, status: ThemeSuggestion['status']) {
-    setSuggestions(prev =>
-      prev.map(s => s.id === id ? { ...s, status } : s)
-    );
+  async function toggleSettings() {
+    if (!SettingsPanel) {
+      const mod = await import('@/components/SettingsPanel');
+      setSettingsPanel(() => mod.default);
+    }
+    setShowSettings(s => !s);
   }
 
   return (
@@ -48,17 +40,25 @@ export default function Home() {
       {/* Header */}
       <header className="bg-gradient-to-r from-amber-600 to-orange-500 text-white">
         <div className="max-w-3xl mx-auto px-4 py-5">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🎶</span>
-            <div>
-              <h1 className="text-xl font-bold tracking-tight">MyOctaves</h1>
-              <p className="text-amber-100 text-xs">Your Musical Week Planner</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">🎶</span>
+              <div>
+                <h1 className="text-xl font-bold tracking-tight">MyOctaves</h1>
+                <p className="text-amber-100 text-xs">Your Musical Inspiration, Every Week</p>
+              </div>
             </div>
+            <button
+              onClick={toggleSettings}
+              className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
+            >
+              ⚙️
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Hero/Purpose — tells a layman what this app does */}
+      {/* Hero/Purpose */}
       <div className="bg-gradient-to-b from-amber-50 to-stone-50 border-b border-amber-100">
         <div className="max-w-3xl mx-auto px-4 py-4 text-center">
           <p className="text-sm text-stone-600 leading-relaxed">
@@ -66,7 +66,7 @@ export default function Home() {
             <span className="font-semibold text-amber-700"> historic milestones</span>, and
             <span className="font-semibold text-amber-700"> seasonal moods</span>.
             <br className="hidden sm:block" />
-            Discover what&apos;s special this week and find inspiration for your next performance, reel, or playlist.
+            Open. Get inspired. Play. Post. That&apos;s it.
           </p>
         </div>
       </div>
@@ -76,70 +76,49 @@ export default function Home() {
         <WeekNav week={week} onChange={handleWeekChange} />
       </div>
 
-      {/* Tabs */}
-      <div className="max-w-3xl mx-auto w-full px-4 mt-4">
-        <div className="flex gap-1 bg-white rounded-xl p-1 shadow-sm border border-stone-200">
-          {TABS.map(t => (
-            <button
-              key={t.key}
-              onClick={() => setTab(t.key)}
-              className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition ${
-                tab === t.key
-                  ? 'bg-amber-600 text-white shadow-sm'
-                  : 'text-stone-500 hover:bg-stone-50 hover:text-stone-700'
-              }`}
-            >
-              <span className="mr-1">{t.icon}</span> {t.label}
-            </button>
-          ))}
+      {/* Settings (hidden by default) */}
+      {showSettings && SettingsPanel && (
+        <div className="max-w-3xl mx-auto w-full px-4 mt-4">
+          <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold text-stone-700">⚙️ Preferences</h2>
+              <button onClick={toggleSettings} className="text-stone-400 hover:text-stone-600 text-sm">✕</button>
+            </div>
+            <SettingsPanel onSave={refresh} />
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Content */}
-      <main className="max-w-3xl mx-auto w-full px-4 py-5 flex-1">
-        {tab === 'week' && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-lg">🎵</span>
-              <div>
-                <h2 className="text-sm font-semibold text-stone-700">This Week&apos;s Musical Occasions</h2>
-                <p className="text-xs text-stone-400">Birthdays, anniversaries, milestones & seasonal vibes</p>
-              </div>
+      <main className="max-w-3xl mx-auto w-full px-4 py-5 flex-1 space-y-8">
+        {/* Section 1: Play This — THE hero */}
+        <section>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-lg">💡</span>
+            <div>
+              <h2 className="text-sm font-semibold text-stone-700">What to Play This Week</h2>
+              <p className="text-xs text-stone-400">Ready-made inspiration with songs &amp; captions</p>
             </div>
-            <ContextPanel cards={cards} />
           </div>
-        )}
-        {tab === 'suggest' && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-lg">💡</span>
-              <div>
-                <h2 className="text-sm font-semibold text-stone-700">Suggested Themes to Play</h2>
-                <p className="text-xs text-stone-400">Based on this week&apos;s occasions — plan, post, or skip</p>
-              </div>
+          <PlayThisPanel cards={playCards} />
+        </section>
+
+        {/* Section 2: Why — the context */}
+        <section>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-lg">🎵</span>
+            <div>
+              <h2 className="text-sm font-semibold text-stone-700">Why This Week Is Special</h2>
+              <p className="text-xs text-stone-400">Birthdays, anniversaries, milestones &amp; seasonal vibes</p>
             </div>
-            <SuggestPanel suggestions={suggestions} onStatusChange={handleSuggestionStatus} />
           </div>
-        )}
-        {tab === 'history' && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-lg">📝</span>
-              <div>
-                <h2 className="text-sm font-semibold text-stone-700">Your Performance Log</h2>
-                <p className="text-xs text-stone-400">Track what you&apos;ve played, posted, or performed</p>
-              </div>
-            </div>
-            <HistoryPanel />
-          </div>
-        )}
-        {tab === 'settings' && <SettingsPanel onSave={refresh} />}
+          <ContextPanel cards={cards} />
+        </section>
       </main>
 
       {/* Footer */}
       <footer className="text-center py-4 text-xs text-stone-400 border-t border-stone-200">
         <p>MyOctaves — Know what&apos;s musically special every week</p>
-        <p className="mt-1 text-stone-300">For musicians, content creators & music lovers</p>
+        <p className="mt-1 text-stone-300">For musicians, content creators &amp; music lovers</p>
       </footer>
     </div>
   );

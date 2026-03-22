@@ -4,7 +4,7 @@
 
 import { WeekRange, ContextCard, ThemeSuggestion, TagType } from './types';
 import { getWeekMMDDs, getMonthFromMMDD, yearsAgo, isMilestoneYear, getIndianSeason } from './dateUtils';
-import { SEED_PEOPLE, SEED_SPECIAL_DAYS, SEASON_CONFIG, SEED_MUSIC_HISTORY } from './seedData';
+import { SEED_PEOPLE, SEED_SPECIAL_DAYS, SEASON_CONFIG, SEED_MUSIC_HISTORY, SEED_SONGS, SeedSong } from './seedData';
 import { getCuratedPeople } from './storage';
 
 let cardSeq = 0;
@@ -125,7 +125,172 @@ export function generateContextCards(week: WeekRange): ContextCard[] {
   return cards;
 }
 
-/** Generate theme suggestions from context cards */
+/** Pick a random song from the bank for a given person or category */
+function pickSong(key: string): SeedSong | undefined {
+  const songs = SEED_SONGS[key];
+  if (!songs || songs.length === 0) return undefined;
+  return songs[Math.floor(Math.random() * songs.length)];
+}
+
+/** Build an Instagram-ready caption */
+function buildCaption(theme: string, songTitle: string, film: string | undefined, reason: string, hashtags: string[]): string {
+  const filmPart = film ? ` from "${film}"` : '';
+  const tagString = hashtags.map(h => `#${h}`).join(' ');
+  return `🎵 ${theme}\n\n"${songTitle}"${filmPart}\n\n${reason}\n\n${tagString}`;
+}
+
+/** Build hashtags from context */
+function buildHashtags(personName?: string, tags?: TagType[], extra?: string[]): string[] {
+  const h: string[] = ['MyOctaves', 'MusicOfTheWeek'];
+  if (personName) h.push(personName.replace(/[\s.]+/g, ''));
+  if (tags) {
+    for (const t of tags) h.push(t);
+  }
+  if (extra) h.push(...extra);
+  return [...new Set(h)];
+}
+
+export interface PlayThisCard {
+  id: string;
+  theme: string;
+  reason: string;
+  songTitle: string;
+  songFilm?: string;
+  songYear?: number;
+  songLanguage?: string;
+  caption: string;
+  hashtags: string[];
+  tags: TagType[];
+  importance: number;
+  icon: string;
+}
+
+/** Generate "Play This" autopilot cards — ready-to-go inspiration */
+export function generatePlayThis(cards: ContextCard[]): PlayThisCard[] {
+  const results: PlayThisCard[] = [];
+
+  for (const card of cards) {
+    if (card.type === 'birthday' && card.person) {
+      const song = pickSong(card.person.id);
+      const theme = `${card.person.name} Birthday Tribute`;
+      const reason = `${card.person.name} ${card.subtitle || 'was born this week'}. A tribute to ${card.person.knownFor || 'their legacy'}.`;
+      const hashtags = buildHashtags(card.person.name, card.tags, ['BirthdayTribute', 'Flute']);
+      results.push({
+        id: `play_bday_${card.person.id}`,
+        theme,
+        reason,
+        songTitle: song?.title || `Any iconic ${card.person.name} song`,
+        songFilm: song?.film || undefined,
+        songYear: song?.year,
+        songLanguage: song?.language,
+        caption: buildCaption(theme, song?.title || `Iconic ${card.person.name} melody`, song?.film, reason, hashtags),
+        hashtags,
+        tags: card.tags,
+        importance: card.importance,
+        icon: '🎂',
+      });
+    }
+
+    if (card.type === 'death_anniversary' && card.person) {
+      const song = pickSong(card.person.id);
+      const theme = `Remembering ${card.person.name}`;
+      const reason = `${card.subtitle || card.person.name + ' passed away this week'}. A heartfelt tribute.`;
+      const hashtags = buildHashtags(card.person.name, card.tags, ['InMemoriam', 'Tribute']);
+      results.push({
+        id: `play_mem_${card.person.id}`,
+        theme,
+        reason,
+        songTitle: song?.title || `A soulful ${card.person.name} classic`,
+        songFilm: song?.film || undefined,
+        songYear: song?.year,
+        songLanguage: song?.language,
+        caption: buildCaption(theme, song?.title || `Soulful ${card.person.name} classic`, song?.film, reason, hashtags),
+        hashtags,
+        tags: card.tags,
+        importance: card.importance,
+        icon: '🕯️',
+      });
+    }
+
+    if (card.type === 'special_day') {
+      const moodKey = card.tags.includes('patriotic') ? '_patriotic'
+        : card.tags.includes('romantic') ? '_romantic'
+        : card.tags.includes('festive') ? '_festive'
+        : card.tags.includes('devotional') ? '_devotional'
+        : '_festive';
+      const song = pickSong(moodKey);
+      const theme = `${card.title} Special`;
+      const hashtags = buildHashtags(undefined, card.tags, [card.title.replace(/[\s']+/g, '')]);
+      results.push({
+        id: `play_day_${card.id}`,
+        theme,
+        reason: card.description,
+        songTitle: song?.title || 'A fitting song for the occasion',
+        songFilm: song?.film || undefined,
+        songYear: song?.year,
+        songLanguage: song?.language,
+        caption: buildCaption(theme, song?.title || 'Special melody', song?.film, card.description, hashtags),
+        hashtags,
+        tags: card.tags,
+        importance: card.importance,
+        icon: '📅',
+      });
+    }
+
+    if (card.type === 'historic_event') {
+      const moodKey = card.tags.includes('classical') ? '_devotional'
+        : card.tags.includes('retro') ? '_festive'
+        : card.tags.includes('melody') ? '_romantic'
+        : '_festive';
+      const song = pickSong(moodKey);
+      const theme = card.title;
+      const hashtags = buildHashtags(undefined, card.tags, ['MusicHistory', 'ThisWeekInMusic']);
+      results.push({
+        id: `play_hist_${card.id}`,
+        theme,
+        reason: `${card.subtitle} — ${card.description}`,
+        songTitle: song?.title || 'A classic that fits the mood',
+        songFilm: song?.film || undefined,
+        songYear: song?.year,
+        songLanguage: song?.language,
+        caption: buildCaption(theme, song?.title || 'Classic pick', song?.film, card.description, hashtags),
+        hashtags,
+        tags: card.tags,
+        importance: card.importance,
+        icon: '📜',
+      });
+    }
+
+    if (card.type === 'seasonal') {
+      const moodKey = card.tags.includes('rain') || card.tags.includes('romantic') ? '_monsoon'
+        : card.tags.includes('festive') ? '_festive'
+        : card.tags.includes('summer') ? '_romantic'
+        : '_devotional';
+      const song = pickSong(moodKey);
+      const theme = `${card.title} Mood`;
+      const hashtags = buildHashtags(undefined, card.tags, ['SeasonalMusic']);
+      results.push({
+        id: `play_season_${card.id}`,
+        theme,
+        reason: card.description,
+        songTitle: song?.title || 'A seasonal favourite',
+        songFilm: song?.film || undefined,
+        songYear: song?.year,
+        songLanguage: song?.language,
+        caption: buildCaption(theme, song?.title || 'Seasonal pick', song?.film, card.description, hashtags),
+        hashtags,
+        tags: card.tags,
+        importance: card.importance,
+        icon: '☀️',
+      });
+    }
+  }
+
+  results.sort((a, b) => b.importance - a.importance);
+  return results;
+}
+
+/** Generate theme suggestions from context cards (legacy — kept for compatibility) */
 export function generateSuggestions(cards: ContextCard[]): ThemeSuggestion[] {
   const suggestions: ThemeSuggestion[] = [];
 

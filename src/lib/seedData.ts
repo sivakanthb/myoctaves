@@ -1,8 +1,121 @@
 // ============================================================
-// MyOctaves — Seed Data: People, Special Days, Seasons
+// MyOctaves — Seed Data: People, Special Days, Seasons, Songs
 // ============================================================
 
 import { Person, SpecialDay, SeasonConfig, HistoricEvent } from './types';
+
+// ============================================================
+// Iconic songs per artist — for ready-made suggestions
+// ============================================================
+export interface SeedSong {
+  title: string;
+  film?: string;
+  year?: number;
+  language: string;
+  mood: string; // 'upbeat' | 'melody' | 'sad' | 'devotional' | 'patriotic' | 'romantic'
+}
+
+export const SEED_SONGS: Record<string, SeedSong[]> = {
+  spb: [
+    { title: 'Adi Raa Adi Raa', film: 'Swathi Muthyam', year: 1986, language: 'Telugu', mood: 'melody' },
+    { title: 'Manasu Palike', film: 'Swathi Kiranam', year: 1992, language: 'Telugu', mood: 'melody' },
+    { title: 'Ek Duuje Ke Liye', film: 'Ek Duuje Ke Liye', year: 1981, language: 'Hindi', mood: 'romantic' },
+    { title: 'Kannu Hodiyaka', film: 'Auto Raja', year: 1980, language: 'Kannada', mood: 'upbeat' },
+  ],
+  lata: [
+    { title: 'Lag Ja Gale', film: 'Woh Kaun Thi', year: 1964, language: 'Hindi', mood: 'romantic' },
+    { title: 'Ajeeb Daastaan Hai Yeh', film: 'Dil Apna Aur Preet Parai', year: 1960, language: 'Hindi', mood: 'melody' },
+    { title: 'Tujhe Dekha To', film: 'DDLJ', year: 1995, language: 'Hindi', mood: 'romantic' },
+  ],
+  ghantasala: [
+    { title: 'Raagam Taanam Pallavi', film: 'Missamma', year: 1955, language: 'Telugu', mood: 'melody' },
+    { title: 'Nee Navvu Cheppindi', film: 'Devadasu', year: 1953, language: 'Telugu', mood: 'romantic' },
+    { title: 'Entho Chinnadi', film: 'Mayabazar', year: 1957, language: 'Telugu', mood: 'melody' },
+  ],
+  kishore: [
+    { title: 'Roop Tera Mastana', film: 'Aradhana', year: 1969, language: 'Hindi', mood: 'romantic' },
+    { title: 'Mere Sapno Ki Rani', film: 'Aradhana', year: 1969, language: 'Hindi', mood: 'upbeat' },
+    { title: 'Pal Pal Dil Ke Paas', film: 'Blackmail', year: 1973, language: 'Hindi', mood: 'melody' },
+  ],
+  rafi: [
+    { title: 'Chaudhvin Ka Chand', film: 'Chaudhvin Ka Chand', year: 1960, language: 'Hindi', mood: 'romantic' },
+    { title: 'Kya Hua Tera Wada', film: 'Hum Kisise Kum Naheen', year: 1977, language: 'Hindi', mood: 'sad' },
+    { title: 'Taarif Karun Kya Uski', film: 'Kashmir Ki Kali', year: 1964, language: 'Hindi', mood: 'melody' },
+  ],
+  rdburman: [
+    { title: 'Tere Bina Zindagi Se', film: 'Aandhi', year: 1975, language: 'Hindi', mood: 'melody' },
+    { title: 'Chura Liya Hai Tumne', film: 'Yaadon Ki Baaraat', year: 1973, language: 'Hindi', mood: 'romantic' },
+    { title: 'Rim Jhim Gire Sawan', film: 'Manzil', year: 1979, language: 'Hindi', mood: 'romantic' },
+  ],
+  ilayaraja: [
+    { title: 'Mannil Indha Kadhal', film: 'Keladi Kanmani', year: 1990, language: 'Tamil', mood: 'romantic' },
+    { title: 'Ilayanila', film: 'Payanangal Mudivathillai', year: 1982, language: 'Tamil', mood: 'melody' },
+    { title: 'Sundari Neeyum', film: 'Michael Madana Kama Rajan', year: 1990, language: 'Tamil', mood: 'melody' },
+  ],
+  arr: [
+    { title: 'Maa Tujhe Salaam', film: 'Vande Mataram', year: 1997, language: 'Hindi', mood: 'patriotic' },
+    { title: 'Jai Ho', film: 'Slumdog Millionaire', year: 2008, language: 'Hindi', mood: 'upbeat' },
+    { title: 'Thee Thee', film: 'Thiruda Thiruda', year: 1993, language: 'Tamil', mood: 'upbeat' },
+  ],
+  susheela: [
+    { title: 'Aaduvari Matalaku', film: 'Pandanti Kapuram', year: 1972, language: 'Telugu', mood: 'melody' },
+    { title: 'Ninne Pelladutha', film: 'Missamma', year: 1955, language: 'Telugu', mood: 'romantic' },
+  ],
+  mss: [
+    { title: 'Kurai Ondrum Illai', film: '', year: 1960, language: 'Tamil', mood: 'devotional' },
+    { title: 'Bhaja Govindam', film: '', year: 1965, language: 'Telugu', mood: 'devotional' },
+  ],
+  bmk: [
+    { title: 'Endaro Mahanubhavulu', film: '', year: 1970, language: 'Telugu', mood: 'devotional' },
+    { title: 'Prabhuvuku Sarivaaru', film: 'Aapadbandhavudu', year: 1992, language: 'Telugu', mood: 'devotional' },
+  ],
+  madan: [
+    { title: 'Lag Ja Gale', film: 'Woh Kaun Thi', year: 1964, language: 'Hindi', mood: 'romantic' },
+    { title: 'Ruke Ruke Se Kadam', film: 'Mausam', year: 1975, language: 'Hindi', mood: 'melody' },
+  ],
+  naushad: [
+    { title: 'Pyar Kiya To Darna Kya', film: 'Mughal-e-Azam', year: 1960, language: 'Hindi', mood: 'melody' },
+    { title: 'Ae Mohabbat Zindabad', film: 'Mughal-e-Azam', year: 1960, language: 'Hindi', mood: 'romantic' },
+  ],
+  mukesh: [
+    { title: 'Jeena Yahan Marna Yahan', film: 'Mera Naam Joker', year: 1970, language: 'Hindi', mood: 'melody' },
+    { title: 'Suhana Safar', film: 'Madhumati', year: 1958, language: 'Hindi', mood: 'romantic' },
+  ],
+  yesudas: [
+    { title: 'Ilayanila', film: 'Payanangal Mudivathillai', year: 1982, language: 'Tamil', mood: 'melody' },
+    { title: 'Mannil Indha Kadhal', film: 'Keladi Kanmani', year: 1990, language: 'Tamil', mood: 'romantic' },
+  ],
+  chitra: [
+    { title: 'Vennello Godari', film: 'Preminchukundam Raa', year: 1997, language: 'Telugu', mood: 'romantic' },
+    { title: 'Kannanule', film: 'Bombay', year: 1995, language: 'Telugu', mood: 'melody' },
+  ],
+  janaki: [
+    { title: 'Paadum Paravaigal', film: 'Payanangal Mudivathillai', year: 1982, language: 'Tamil', mood: 'melody' },
+    { title: 'Amma Ani Kothaga', film: 'Life Is Beautiful', year: 2012, language: 'Telugu', mood: 'melody' },
+  ],
+  // Season/mood songs (keyed by category)
+  _patriotic: [
+    { title: 'Aye Mere Watan Ke Logon', film: '', year: 1963, language: 'Hindi', mood: 'patriotic' },
+    { title: 'Maa Tujhe Salaam', film: 'Vande Mataram', year: 1997, language: 'Hindi', mood: 'patriotic' },
+    { title: 'Desh Rangeela', film: 'Fanaa', year: 2006, language: 'Hindi', mood: 'patriotic' },
+  ],
+  _romantic: [
+    { title: 'Tujhe Dekha To', film: 'DDLJ', year: 1995, language: 'Hindi', mood: 'romantic' },
+    { title: 'Ennodu Nee Irundhal', film: 'I', year: 2015, language: 'Tamil', mood: 'romantic' },
+  ],
+  _monsoon: [
+    { title: 'Rim Jhim Gire Sawan', film: 'Manzil', year: 1979, language: 'Hindi', mood: 'romantic' },
+    { title: 'Bheegi Bheegi Raaton Mein', film: 'Ajanabee', year: 1974, language: 'Hindi', mood: 'romantic' },
+  ],
+  _festive: [
+    { title: 'Nagada Sang Dhol', film: 'Goliyon Ki Rasleela Ram-Leela', year: 2013, language: 'Hindi', mood: 'upbeat' },
+    { title: 'Jai Jai Shiv Shankar', film: 'Aap Ki Kasam', year: 1974, language: 'Hindi', mood: 'upbeat' },
+  ],
+  _devotional: [
+    { title: 'Kurai Ondrum Illai', film: '', year: 1960, language: 'Tamil', mood: 'devotional' },
+    { title: 'Om Jai Jagdish Hare', film: '', year: 1950, language: 'Hindi', mood: 'devotional' },
+  ],
+};
 
 export const SEED_PEOPLE: Person[] = [
   {
