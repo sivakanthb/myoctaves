@@ -1,30 +1,45 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { WeekRange, ContextCard } from '@/lib/types';
+import { WeekRange, ContextCard, DiscoveryFilters } from '@/lib/types';
 import { thisWeek } from '@/lib/dateUtils';
-import { generateContextCards, generatePlayThis, PlayThisCard } from '@/lib/contextEngine';
+import { generateContextCards } from '@/lib/contextEngine';
+import { discoverSongs, countMatches, DiscoveryResult } from '@/lib/discoveryEngine';
 import WeekNav from '@/components/WeekNav';
 import ContextPanel from '@/components/ContextPanel';
-import PlayThisPanel from '@/components/PlayThisPanel';
+import FilterBar from '@/components/FilterBar';
+import SongResults from '@/components/SongResults';
+
+const EMPTY_FILTERS: DiscoveryFilters = { genre: null, mood: null, weather: null, duration: null, language: null };
 
 export default function Home() {
   const [week, setWeek] = useState<WeekRange>(thisWeek());
   const [cards, setCards] = useState<ContextCard[]>([]);
-  const [playCards, setPlayCards] = useState<PlayThisCard[]>([]);
+  const [filters, setFilters] = useState<DiscoveryFilters>(EMPTY_FILTERS);
+  const [results, setResults] = useState<DiscoveryResult[]>([]);
+  const [matchCount, setMatchCount] = useState(0);
+  const [showFilters, setShowFilters] = useState(true);
+  const [showContext, setShowContext] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [SettingsPanel, setSettingsPanel] = useState<React.ComponentType<{ onSave: () => void }> | null>(null);
 
-  const refresh = useCallback(() => {
+  const refreshContext = useCallback(() => {
     const c = generateContextCards(week);
     setCards(c);
-    setPlayCards(generatePlayThis(c));
   }, [week]);
 
-  useEffect(() => { refresh(); }, [refresh]);
+  // Refresh songs whenever filters or context change
+  const refreshSongs = useCallback(() => {
+    const r = discoverSongs(filters, cards);
+    setResults(r);
+    setMatchCount(countMatches(filters));
+  }, [filters, cards]);
 
-  function handleWeekChange(w: WeekRange) {
-    setWeek(w);
+  useEffect(() => { refreshContext(); }, [refreshContext]);
+  useEffect(() => { refreshSongs(); }, [refreshSongs]);
+
+  function handleFilterChange(f: DiscoveryFilters) {
+    setFilters(f);
   }
 
   async function toggleSettings() {
@@ -45,7 +60,7 @@ export default function Home() {
               <span className="text-3xl">🎶</span>
               <div>
                 <h1 className="text-xl font-bold tracking-tight">MyOctaves</h1>
-                <p className="text-amber-100 text-xs">Your Musical Inspiration, Every Week</p>
+                <p className="text-amber-100 text-xs">Find Your Song. Play. Post.</p>
               </div>
             </div>
             <button
@@ -58,25 +73,25 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero/Purpose */}
+      {/* Hero */}
       <div className="bg-gradient-to-b from-amber-50 to-stone-50 border-b border-amber-100">
         <div className="max-w-3xl mx-auto px-4 py-4 text-center">
           <p className="text-sm text-stone-600 leading-relaxed">
-            Every week has a musical story — <span className="font-semibold text-amber-700">birthdays of legends</span>,
-            <span className="font-semibold text-amber-700"> historic milestones</span>, and
-            <span className="font-semibold text-amber-700"> seasonal moods</span>.
+            Pick a <span className="font-semibold text-amber-700">genre</span>,
+            <span className="font-semibold text-amber-700"> mood</span>, or
+            <span className="font-semibold text-amber-700"> vibe</span> — get a song to play with a ready-to-post caption.
             <br className="hidden sm:block" />
-            Open. Get inspired. Play. Post. That&apos;s it.
+            Songs linked to <span className="font-semibold text-amber-700">this week&apos;s birthdays &amp; milestones</span> are boosted to the top.
           </p>
         </div>
       </div>
 
       {/* Week Nav */}
-      <div className="max-w-3xl mx-auto w-full px-4 mt-4 relative z-10">
-        <WeekNav week={week} onChange={handleWeekChange} />
+      <div className="max-w-3xl mx-auto w-full px-4 mt-4">
+        <WeekNav week={week} onChange={setWeek} />
       </div>
 
-      {/* Settings (hidden by default) */}
+      {/* Settings */}
       {showSettings && SettingsPanel && (
         <div className="max-w-3xl mx-auto w-full px-4 mt-4">
           <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-sm">
@@ -84,40 +99,63 @@ export default function Home() {
               <h2 className="text-sm font-semibold text-stone-700">⚙️ Preferences</h2>
               <button onClick={toggleSettings} className="text-stone-400 hover:text-stone-600 text-sm">✕</button>
             </div>
-            <SettingsPanel onSave={refresh} />
+            <SettingsPanel onSave={refreshContext} />
           </div>
         </div>
       )}
 
-      <main className="max-w-3xl mx-auto w-full px-4 py-5 flex-1 space-y-8">
-        {/* Section 1: Play This — THE hero */}
+      <main className="max-w-3xl mx-auto w-full px-4 py-5 flex-1 space-y-6">
+        {/* FILTERS */}
+        <section>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="flex items-center gap-2 mb-3 group"
+          >
+            <span className="text-lg">🎛️</span>
+            <h2 className="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition">
+              Filter &amp; Discover
+            </h2>
+            <span className="text-xs text-stone-400">{showFilters ? '▾' : '▸'}</span>
+          </button>
+          {showFilters && (
+            <div className="rounded-xl bg-white border border-stone-200 p-4 shadow-sm">
+              <FilterBar filters={filters} onChange={handleFilterChange} matchCount={matchCount} />
+            </div>
+          )}
+        </section>
+
+        {/* SONG RESULTS */}
         <section>
           <div className="flex items-center gap-2 mb-4">
             <span className="text-lg">💡</span>
             <div>
-              <h2 className="text-sm font-semibold text-stone-700">What to Play This Week</h2>
-              <p className="text-xs text-stone-400">Ready-made inspiration with songs &amp; captions</p>
+              <h2 className="text-sm font-semibold text-stone-700">What to Play</h2>
+              <p className="text-xs text-stone-400">Tap any card to see its caption • ⭐ = relevant this week</p>
             </div>
           </div>
-          <PlayThisPanel cards={playCards} />
+          <SongResults results={results} />
         </section>
 
-        {/* Section 2: Why — the context */}
+        {/* CONTEXT (collapsible) */}
         <section>
-          <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => setShowContext(!showContext)}
+            className="flex items-center gap-2 mb-3 group"
+          >
             <span className="text-lg">🎵</span>
-            <div>
-              <h2 className="text-sm font-semibold text-stone-700">Why This Week Is Special</h2>
-              <p className="text-xs text-stone-400">Birthdays, anniversaries, milestones &amp; seasonal vibes</p>
-            </div>
-          </div>
-          <ContextPanel cards={cards} />
+            <h2 className="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition">
+              Why This Week Is Special
+            </h2>
+            <span className="text-xs text-stone-400">{showContext ? '▾' : '▸'}</span>
+            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">{cards.length}</span>
+          </button>
+          {showContext && <ContextPanel cards={cards} />}
         </section>
       </main>
 
       {/* Footer */}
       <footer className="text-center py-4 text-xs text-stone-400 border-t border-stone-200">
-        <p>MyOctaves — Know what&apos;s musically special every week</p>
+        <p>MyOctaves — Find your song, every week</p>
         <p className="mt-1 text-stone-300">For musicians, content creators &amp; music lovers</p>
       </footer>
     </div>

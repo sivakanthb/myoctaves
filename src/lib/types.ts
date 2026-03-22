@@ -179,3 +179,39 @@ export const ALL_CATEGORIES: CategoryType[] = [
   'special_day', 'historic_event', 'seasonal', 'mood',
 ];
 
+// ---------- Song Discovery Filters ----------
+export type Genre = 'Bollywood' | 'Tollywood' | 'Carnatic' | 'Hindustani' | 'Ghazal' | 'Folk' | 'Devotional' | 'Western' | 'Patriotic' | 'Indie';
+export type SongMood = 'Happy' | 'Melancholic' | 'Romantic' | 'Peaceful' | 'Energetic' | 'Devotional' | 'Patriotic' | 'Nostalgic';
+export type Weather = 'Rainy' | 'Sunny' | 'Winter' | 'Any';
+export type Duration = 'Reel' | 'Short' | 'Full';
+
+export const ALL_GENRES: Genre[] = ['Bollywood', 'Tollywood', 'Carnatic', 'Hindustani', 'Ghazal', 'Folk', 'Devotional', 'Western', 'Patriotic', 'Indie'];
+export const ALL_MOODS: SongMood[] = ['Happy', 'Melancholic', 'Romantic', 'Peaceful', 'Energetic', 'Devotional', 'Patriotic', 'Nostalgic'];
+export const ALL_WEATHERS: Weather[] = ['Rainy', 'Sunny', 'Winter', 'Any'];
+export const ALL_DURATIONS: Duration[] = ['Reel', 'Short', 'Full'];
+
+export interface DiscoverySong {
+  id: string;
+  title: string;
+  film?: string;
+  artist: string;    // singer or composer
+  composer?: string;
+  year: number;
+  language: Language;
+  genre: Genre;
+  mood: SongMood;
+  weather: Weather[];
+  duration: Duration;
+  personId?: string;  // links to SEED_PEOPLE for context-aware boosting
+  reelFriendly: boolean;
+  caption?: string;   // optional pre-built caption override
+}
+
+export interface DiscoveryFilters {
+  genre: Genre | null;
+  mood: SongMood | null;
+  weather: Weather | null;
+  duration: Duration | null;
+  language: Language | null;
+}
+
