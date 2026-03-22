@@ -27,21 +27,29 @@ const ROLE_EMOJI: Record<string, string> = {
   actor: '\uD83C\uDFAD',
 };
 
+const AVATAR_GRADIENTS: Record<string, string> = {
+  singer: 'from-rose-400 to-pink-500',
+  composer: 'from-violet-400 to-purple-500',
+  music_director: 'from-blue-400 to-indigo-500',
+  lyricist: 'from-emerald-400 to-teal-500',
+  instrumentalist: 'from-amber-400 to-yellow-500',
+};
+
 function roleChips(roles: Person['role']) {
   return roles.map(r => (
-    <span key={r} className="inline-flex items-center gap-0.5 rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700 border border-amber-200">
+    <span key={r} className="inline-flex items-center gap-0.5 rounded-full bg-white/80 px-2 py-0.5 text-[10px] font-medium text-slate-600 border border-slate-200/60 shadow-sm">
       {ROLE_EMOJI[r] || ''} {r.replace('_', ' ')}
     </span>
   ));
 }
 
-function eraLabel(birthYear?: number): string {
-  if (!birthYear) return '';
-  if (birthYear < 1920) return 'Pre-Independence';
-  if (birthYear < 1940) return 'Golden Era';
-  if (birthYear < 1960) return 'Classical Era';
-  if (birthYear < 1980) return 'Modern Era';
-  return 'Contemporary';
+function eraLabel(birthYear?: number): { text: string; color: string } {
+  if (!birthYear) return { text: '', color: '' };
+  if (birthYear < 1920) return { text: 'Pre-Independence', color: 'bg-amber-100/80 text-amber-800' };
+  if (birthYear < 1940) return { text: 'Golden Era', color: 'bg-yellow-100/80 text-yellow-800' };
+  if (birthYear < 1960) return { text: 'Classical Era', color: 'bg-blue-100/80 text-blue-800' };
+  if (birthYear < 1980) return { text: 'Modern Era', color: 'bg-purple-100/80 text-purple-800' };
+  return { text: 'Contemporary', color: 'bg-emerald-100/80 text-emerald-800' };
 }
 
 function lifeSpan(p: Person): string {
@@ -50,6 +58,13 @@ function lifeSpan(p: Person): string {
   if (b && d) return `${b} \u2013 ${d}`;
   if (b) return b;
   return '';
+}
+
+function primaryGradient(roles: Person['role']): string {
+  for (const r of roles) {
+    if (AVATAR_GRADIENTS[r]) return AVATAR_GRADIENTS[r];
+  }
+  return 'from-slate-400 to-slate-500';
 }
 
 export default function PeoplePage() {
@@ -80,7 +95,6 @@ export default function PeoplePage() {
     return list;
   }, [roleFilter, search, sortBy]);
 
-  // Stats
   const stats = useMemo(() => {
     const singers = SEED_PEOPLE.filter(p => p.role.includes('singer')).length;
     const composers = SEED_PEOPLE.filter(p => p.role.includes('composer') || p.role.includes('music_director')).length;
@@ -92,72 +106,60 @@ export default function PeoplePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="bg-gradient-to-r from-amber-600 to-orange-500 text-white">
-        <div className="max-w-4xl mx-auto px-4 py-5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl" role="img" aria-label="people">&#x1F3B6;</span>
+      <header className="studio-header-v2 text-white">
+        <div className="relative max-w-5xl mx-auto px-4 py-8">
+          <div className="flex items-center justify-between relative z-10">
+            <div className="flex items-center gap-3 anim-fade-up">
+              <span className="text-4xl anim-float" role="img" aria-label="people">&#x1F3B6;</span>
               <div>
-                <h1 className="text-xl font-bold tracking-tight">Musical Legends</h1>
-                <p className="text-amber-100 text-xs">A Bibliography of Indian Music Icons</p>
+                <h1 className="text-2xl font-extrabold tracking-tight gradient-text" style={{background: 'linear-gradient(135deg, #fef3c7, #fbbf24, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>Musical Legends</h1>
+                <p className="text-slate-400 text-xs mt-0.5">A Bibliography of Indian Music Icons</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Link
-                href="/discover"
-                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
-              >
-                &#x1F4A1; Song Spark
-              </Link>
-              <Link
-                href="/almanac"
-                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
-              >
-                &#x1F4C5; Almanac
-              </Link>
-              <Link
-                href="/"
-                className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
-              >
-                &#x1F3E0; Home
-              </Link>
+              <Link href="/discover" className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-white/80 hover:bg-white/20 hover:text-white transition">&#x1F4A1; Song Spark</Link>
+              <Link href="/almanac" className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-white/80 hover:bg-white/20 hover:text-white transition">&#x1F4C5; Almanac</Link>
+              <Link href="/" className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-white/80 hover:bg-white/20 hover:text-white transition">&#x1F3E0; Home</Link>
             </div>
           </div>
+
+          {/* Animated Stats */}
+          <div className="mt-6 flex flex-wrap gap-6 justify-center anim-fade-up" style={{animationDelay: '0.15s'}}>
+            {[
+              { n: stats.total, label: 'Artists', icon: '&#x1F3B5;' },
+              { n: stats.singers, label: 'Singers', icon: '&#x1F3A4;' },
+              { n: stats.composers, label: 'Composers', icon: '&#x1F3B9;' },
+              { n: stats.lyricists, label: 'Lyricists', icon: '&#x270D;&#xFE0F;' },
+              { n: stats.instrumentalists, label: 'Instrumentalists', icon: '&#x1F3BB;' },
+            ].map(s => (
+              <div key={s.label} className="text-center group">
+                <div className="text-2xl font-black text-yellow-400 group-hover:scale-110 transition-transform" dangerouslySetInnerHTML={{ __html: `${s.n}` }} />
+                <div className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
+        {/* Shimmer divider */}
+        <div className="h-0.5 shimmer-bar" />
       </header>
 
-      {/* Stats Bar */}
-      <div className="bg-gradient-to-b from-amber-50 to-stone-50 border-b border-amber-100">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex flex-wrap gap-4 justify-center text-center">
-          {[
-            { n: stats.total, label: 'Artists' },
-            { n: stats.singers, label: 'Singers' },
-            { n: stats.composers, label: 'Composers' },
-            { n: stats.lyricists, label: 'Lyricists' },
-            { n: stats.instrumentalists, label: 'Instrumentalists' },
-          ].map(s => (
-            <div key={s.label}>
-              <div className="text-lg font-bold text-amber-700">{s.n}</div>
-              <div className="text-[10px] text-stone-500 uppercase tracking-wider">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <main className="max-w-4xl mx-auto w-full px-4 py-5 flex-1">
+      <main className="max-w-5xl mx-auto w-full px-4 py-6 flex-1">
         {/* Search + Sort */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-4">
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search by name, language, achievement..."
-            className="flex-1 rounded-lg border border-stone-300 px-3 py-2 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
-          />
+        <div className="flex flex-col sm:flex-row gap-3 mb-5 anim-fade-up" style={{animationDelay: '0.2s'}}>
+          <div className="relative flex-1">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">&#x1F50D;</span>
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search by name, language, achievement..."
+              className="w-full rounded-xl border border-slate-200 bg-white/70 backdrop-blur-sm pl-9 pr-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/40 focus:border-yellow-500/40 transition shadow-sm"
+            />
+          </div>
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value as 'name' | 'year')}
-            className="rounded-lg border border-stone-300 px-3 py-2 text-sm text-stone-700 bg-white focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="rounded-xl border border-slate-200 bg-white/70 backdrop-blur-sm px-3 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500/40 shadow-sm"
           >
             <option value="name">Sort: A-Z</option>
             <option value="year">Sort: Era</option>
@@ -165,55 +167,60 @@ export default function PeoplePage() {
         </div>
 
         {/* Role Filter Chips */}
-        <div className="flex gap-1.5 flex-wrap mb-5">
+        <div className="flex gap-2 flex-wrap mb-6 anim-fade-up" style={{animationDelay: '0.25s'}}>
           {(Object.keys(ROLE_LABELS) as RoleFilter[]).map(r => {
             const active = roleFilter === r;
             return (
               <button
                 key={r}
                 onClick={() => setRoleFilter(r)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition ${
-                  active ? 'bg-amber-100 text-amber-800 ring-2 ring-amber-400' : 'bg-stone-50 text-stone-500 hover:bg-stone-100'
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+                  active
+                    ? 'bg-gradient-to-r from-yellow-500 to-amber-500 text-white shadow-md shadow-yellow-500/20 scale-105'
+                    : 'glass-card text-slate-500 hover:text-slate-700 hover:shadow-md'
                 }`}
               >
                 {ROLE_LABELS[r]}
               </button>
             );
           })}
-          <span className="ml-auto text-xs text-stone-400 self-center">{filtered.length} found</span>
+          <span className="ml-auto text-xs text-slate-400 self-center font-medium">{filtered.length} found</span>
         </div>
 
-        {/* People Cards */}
-        <div className="space-y-3">
+        {/* People Grid — 2 columns on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 stagger-children">
           {filtered.map(person => {
             const isExpanded = expandedId === person.id;
             const era = eraLabel(person.birthYear);
+            const grad = primaryGradient(person.role);
             return (
               <div
                 key={person.id}
-                className="rounded-xl border border-stone-200 bg-white shadow-sm overflow-hidden hover:border-amber-300 transition"
+                className={`anim-fade-up rounded-2xl glass-card shadow-sm overflow-hidden hover-lift transition-all ${
+                  isExpanded ? 'md:col-span-2 glow-border' : ''
+                }`}
               >
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : person.id)}
-                  className="w-full text-left px-4 py-3 flex items-center gap-3"
+                  className="w-full text-left px-5 py-4 flex items-center gap-4"
                 >
-                  {/* Avatar Circle */}
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-400 flex items-center justify-center text-white font-bold text-sm">
+                  {/* Gradient Avatar */}
+                  <div className={`flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br ${grad} flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-slate-200/50`}>
                     {person.name.charAt(0)}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-sm font-semibold text-stone-800">{person.name}</h3>
-                      <span className="text-[10px] text-stone-400">{lifeSpan(person)}</span>
-                      {era && <span className="text-[10px] rounded-full bg-blue-50 text-blue-600 px-1.5 py-0.5">{era}</span>}
+                      <h3 className="text-sm font-bold text-slate-800">{person.name}</h3>
+                      <span className="text-[10px] text-slate-400">{lifeSpan(person)}</span>
+                      {era.text && <span className={`text-[10px] rounded-full px-2 py-0.5 font-medium ${era.color}`}>{era.text}</span>}
                     </div>
-                    <p className="text-xs text-stone-500 mt-0.5 truncate">{person.knownFor}</p>
+                    <p className="text-xs text-slate-500 mt-0.5 truncate">{person.knownFor}</p>
                   </div>
-                  <span className="text-stone-400 text-xs flex-shrink-0">{isExpanded ? '\u25B2' : '\u25BC'}</span>
+                  <span className={`text-slate-300 text-xs flex-shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`}>&#x25BC;</span>
                 </button>
 
                 {isExpanded && (
-                  <div className="border-t border-stone-100 px-4 py-3 bg-stone-50/50 space-y-3">
+                  <div className="border-t border-slate-100/60 px-5 py-4 bg-gradient-to-b from-slate-50/50 to-white/30 space-y-3 anim-scale-in">
                     {/* Roles */}
                     <div className="flex flex-wrap gap-1.5">
                       {roleChips(person.role)}
@@ -221,16 +228,16 @@ export default function PeoplePage() {
 
                     {/* Languages */}
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase text-stone-400 font-semibold tracking-wider">Languages</span>
+                      <span className="text-[10px] uppercase text-slate-400 font-semibold tracking-wider">Languages</span>
                       <div className="flex gap-1 flex-wrap">
                         {person.languages.map(l => (
-                          <span key={l} className="rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-medium text-stone-600">{l}</span>
+                          <span key={l} className="rounded-full bg-slate-100/80 px-2.5 py-0.5 text-[10px] font-medium text-slate-600">{l}</span>
                         ))}
                       </div>
                     </div>
 
                     {/* Birth / Death */}
-                    <div className="flex gap-4 text-xs text-stone-600">
+                    <div className="flex gap-4 text-xs text-slate-600">
                       {person.birthDate && (
                         <span>&#x1F382; Born: {person.birthDate}{person.birthYear ? ` (${person.birthYear})` : ''}</span>
                       )}
@@ -238,18 +245,18 @@ export default function PeoplePage() {
                         <span>&#x1F56F;&#xFE0F; Passed: {person.deathDate}{person.deathYear ? ` (${person.deathYear})` : ''}</span>
                       )}
                       {!person.deathDate && person.birthYear && (
-                        <span className="text-green-600">&#x2728; Active</span>
+                        <span className="text-emerald-600 font-medium">&#x2728; Active</span>
                       )}
                     </div>
 
                     {/* Achievements */}
                     {person.achievements && person.achievements.length > 0 && (
                       <div>
-                        <p className="text-[10px] uppercase text-stone-400 font-semibold tracking-wider mb-1">Achievements</p>
-                        <ul className="space-y-1">
+                        <p className="text-[10px] uppercase text-slate-400 font-semibold tracking-wider mb-1.5">Achievements</p>
+                        <ul className="space-y-1.5">
                           {person.achievements.map((a, i) => (
-                            <li key={i} className="flex items-start gap-1.5 text-xs text-stone-700">
-                              <span className="text-amber-500 mt-0.5">&#x2605;</span>
+                            <li key={i} className="flex items-start gap-2 text-xs text-slate-700">
+                              <span className="text-yellow-500 mt-0.5">&#x2605;</span>
                               {a}
                             </li>
                           ))}
@@ -264,14 +271,14 @@ export default function PeoplePage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-stone-400 text-sm">
+          <div className="text-center py-16 text-slate-400 text-sm anim-fade-in">
+            <p className="text-4xl mb-3">&#x1F50D;</p>
             No artists found matching your search.
           </div>
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="text-center py-4 text-xs text-stone-400">
+      <footer className="text-center py-5 text-xs text-slate-400">
         MyOctaves Musical Legends &#x2022; {SEED_PEOPLE.length} artists documented
       </footer>
     </div>

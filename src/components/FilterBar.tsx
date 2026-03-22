@@ -19,8 +19,8 @@ function Chip<T extends string>({ label, value, active, onClick }: { label: stri
       onClick={() => onClick(value)}
       className={`rounded-full px-3 py-1 text-xs font-medium transition whitespace-nowrap ${
         active
-          ? 'bg-amber-600 text-white shadow-sm'
-          : 'bg-white border border-stone-200 text-stone-500 hover:border-amber-300 hover:text-amber-700'
+          ? 'bg-yellow-700 text-white shadow-sm'
+          : 'bg-white border border-slate-200 text-slate-500 hover:border-yellow-700/40 hover:text-yellow-800'
       }`}
     >
       {label}
@@ -83,17 +83,17 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
           onClick={() => setOpen(isOpen ? null : filterKey)}
           className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-medium transition ${
             selected
-              ? 'border-amber-300 bg-amber-50 text-amber-700'
-              : 'border-stone-200 bg-white text-stone-600 hover:border-stone-300'
+              ? 'border-yellow-700/40 bg-yellow-50 text-yellow-800'
+              : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
           }`}
         >
-          <span className="text-[10px] uppercase tracking-wide text-stone-400">{label}</span>
+          <span className="text-[10px] uppercase tracking-wide text-slate-400">{label}</span>
           <span className="font-semibold">{selected || 'All'}</span>
-          <span className="text-stone-300 text-[10px]">{isOpen ? '\u25B2' : '\u25BC'}</span>
+          <span className="text-slate-300 text-[10px]">{isOpen ? '\u25B2' : '\u25BC'}</span>
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 mt-1 z-20 rounded-xl border border-stone-200 bg-white p-3 shadow-lg min-w-[200px]">
+          <div className="absolute top-full left-0 mt-1 z-20 rounded-xl border border-slate-200 bg-white p-3 shadow-lg min-w-[200px]">
             <div className="flex flex-wrap gap-1.5">
               {filterKey === 'genre' && ALL_GENRES.map(g => (
                 <Chip key={g} label={g} value={g} active={filters.genre === g} onClick={(v: Genre) => { set({ genre: toggle(filters.genre, v) }); setOpen(null); }} />
@@ -134,7 +134,7 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
         {hasFilters && (
           <button
             onClick={() => { onChange({ genre: null, mood: null, weather: null, era: null, language: null, festival: null }); setOpen(null); }}
-            className="rounded-lg border border-stone-200 px-3 py-2 text-xs text-stone-400 hover:text-amber-600 hover:border-amber-300 transition"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-400 hover:text-yellow-800 hover:border-yellow-700/40 transition"
           >
             \u21BB Reset
           </button>
@@ -142,8 +142,8 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
       </div>
 
       {/* Match count */}
-      <p className="text-xs text-stone-500">
-        <span className="font-bold text-amber-700">{matchCount}</span> song{matchCount !== 1 ? 's' : ''} match{matchCount === 1 ? 'es' : ''}
+      <p className="text-xs text-slate-500">
+        <span className="font-bold text-yellow-800">{matchCount}</span> song{matchCount !== 1 ? 's' : ''} match{matchCount === 1 ? 'es' : ''}
       </p>
     </div>
   );

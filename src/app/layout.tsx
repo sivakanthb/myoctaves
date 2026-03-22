@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyOctaves — Your Musical Week Planner",
-  description: "Discover what's musically special every week — birthdays of legends, historic milestones, and seasonal moods. Get inspired for your next performance, reel, or playlist.",
+  title: "MyOctaves — My Musical Week Planner",
+  description: "Discover what's musically special every week — birthdays of legends, historic milestones, and seasonal moods. Get inspired for my next performance, reel, or playlist.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-stone-50 text-stone-800">{children}</body>
+      <body className="min-h-full flex flex-col music-bg text-slate-800">{children}</body>
     </html>
   );
 }

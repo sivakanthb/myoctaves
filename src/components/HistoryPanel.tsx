@@ -118,7 +118,7 @@ export default function HistoryPanel() {
         <div className="text-center py-16 text-stone-400">
           <p className="text-4xl mb-3">📝</p>
           <p className="font-medium">No posts yet</p>
-          <p className="text-sm mt-1">Add your first post to start tracking!</p>
+          <p className="text-sm mt-1">Add our first post to start tracking!</p>
         </div>
       ) : (
         <div className="space-y-2">
