@@ -2,7 +2,7 @@
 // MyOctaves — Discovery Engine: filter, boost, rank songs
 // ============================================================
 
-import { DiscoverySong, DiscoveryFilters, ContextCard } from './types';
+import { DiscoverySong, DiscoveryFilters, ContextCard, yearToEra } from './types';
 import { SONG_CATALOGUE } from './songCatalogue';
 
 export interface DiscoveryResult {
@@ -18,7 +18,7 @@ function filterSongs(filters: DiscoveryFilters): DiscoverySong[] {
     if (filters.genre && song.genre !== filters.genre) return false;
     if (filters.mood && song.mood !== filters.mood) return false;
     if (filters.weather && song.weather.indexOf(filters.weather) === -1 && song.weather.indexOf('Any') === -1) return false;
-    if (filters.duration && song.duration !== filters.duration) return false;
+    if (filters.era && yearToEra(song.year) !== filters.era) return false;
     if (filters.language && song.language !== filters.language) return false;
     return true;
   });

@@ -10,7 +10,7 @@ import ContextPanel from '@/components/ContextPanel';
 import FilterBar from '@/components/FilterBar';
 import SongResults from '@/components/SongResults';
 
-const EMPTY_FILTERS: DiscoveryFilters = { genre: null, mood: null, weather: null, duration: null, language: null };
+const EMPTY_FILTERS: DiscoveryFilters = { genre: null, mood: null, weather: null, era: null, language: null };
 
 export default function Home() {
   const [week, setWeek] = useState<WeekRange>(thisWeek());

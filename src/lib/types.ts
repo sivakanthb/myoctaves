@@ -183,12 +183,22 @@ export const ALL_CATEGORIES: CategoryType[] = [
 export type Genre = 'Bollywood' | 'Tollywood' | 'Carnatic' | 'Hindustani' | 'Ghazal' | 'Folk' | 'Devotional' | 'Western' | 'Patriotic' | 'Indie';
 export type SongMood = 'Happy' | 'Melancholic' | 'Romantic' | 'Peaceful' | 'Energetic' | 'Devotional' | 'Patriotic' | 'Nostalgic';
 export type Weather = 'Rainy' | 'Sunny' | 'Winter' | 'Any';
-export type Duration = 'Reel' | 'Short' | 'Full';
+export type Era = 'Golden' | '60s' | '70s' | '80s' | '90s' | '2000s' | '2010s+';
 
 export const ALL_GENRES: Genre[] = ['Bollywood', 'Tollywood', 'Carnatic', 'Hindustani', 'Ghazal', 'Folk', 'Devotional', 'Western', 'Patriotic', 'Indie'];
 export const ALL_MOODS: SongMood[] = ['Happy', 'Melancholic', 'Romantic', 'Peaceful', 'Energetic', 'Devotional', 'Patriotic', 'Nostalgic'];
 export const ALL_WEATHERS: Weather[] = ['Rainy', 'Sunny', 'Winter', 'Any'];
-export const ALL_DURATIONS: Duration[] = ['Reel', 'Short', 'Full'];
+export const ALL_ERAS: Era[] = ['Golden', '60s', '70s', '80s', '90s', '2000s', '2010s+'];
+
+export function yearToEra(year: number): Era {
+  if (year < 1960) return 'Golden';
+  if (year < 1970) return '60s';
+  if (year < 1980) return '70s';
+  if (year < 1990) return '80s';
+  if (year < 2000) return '90s';
+  if (year < 2010) return '2000s';
+  return '2010s+';
+}
 
 export interface DiscoverySong {
   id: string;
@@ -201,7 +211,6 @@ export interface DiscoverySong {
   genre: Genre;
   mood: SongMood;
   weather: Weather[];
-  duration: Duration;
   personId?: string;  // links to SEED_PEOPLE for context-aware boosting
   reelFriendly: boolean;
   caption?: string;   // optional pre-built caption override
@@ -211,7 +220,7 @@ export interface DiscoveryFilters {
   genre: Genre | null;
   mood: SongMood | null;
   weather: Weather | null;
-  duration: Duration | null;
+  era: Era | null;
   language: Language | null;
 }
 

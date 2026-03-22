@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  Genre, SongMood, Weather, Duration, Language,
-  ALL_GENRES, ALL_MOODS, ALL_WEATHERS, ALL_DURATIONS, ALL_LANGUAGES,
+  Genre, SongMood, Weather, Era, Language,
+  ALL_GENRES, ALL_MOODS, ALL_WEATHERS, ALL_ERAS, ALL_LANGUAGES,
   DiscoveryFilters,
 } from '@/lib/types';
 
@@ -40,8 +40,14 @@ const WEATHER_ICONS: Record<Weather, string> = {
   Rainy: '🌧️', Sunny: '☀️', Winter: '❄️', Any: '🌍',
 };
 
-const DURATION_LABELS: Record<Duration, string> = {
-  Reel: '🎬 Reel (<1 min)', Short: '⏱️ Short (1-3 min)', Full: '🎵 Full song',
+const ERA_LABELS: Record<Era, string> = {
+  Golden: '🎻 Golden (Pre-60s)',
+  '60s': '🎙️ 60s',
+  '70s': '🎸 70s',
+  '80s': '📻 80s',
+  '90s': '💿 90s',
+  '2000s': '📀 2000s',
+  '2010s+': '🔥 2010s+',
 };
 
 export default function FilterBar({ filters, onChange, matchCount }: Props) {
@@ -49,7 +55,7 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
     onChange({ ...filters, ...patch });
   }
 
-  const hasFilters = filters.genre || filters.mood || filters.weather || filters.duration || filters.language;
+  const hasFilters = filters.genre || filters.mood || filters.weather || filters.era || filters.language;
 
   return (
     <div className="space-y-3">
@@ -83,12 +89,12 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
         </div>
       </div>
 
-      {/* Duration */}
+      {/* Era */}
       <div>
-        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Duration</p>
+        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Era</p>
         <div className="flex flex-wrap gap-1.5">
-          {ALL_DURATIONS.map(d => (
-            <Chip key={d} label={DURATION_LABELS[d]} value={d} active={filters.duration === d} onClick={(v: Duration) => set({ duration: toggle(filters.duration, v) })} />
+          {ALL_ERAS.map(e => (
+            <Chip key={e} label={ERA_LABELS[e]} value={e} active={filters.era === e} onClick={(v: Era) => set({ era: toggle(filters.era, v) })} />
           ))}
         </div>
       </div>
@@ -110,7 +116,7 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
         </p>
         {hasFilters && (
           <button
-            onClick={() => onChange({ genre: null, mood: null, weather: null, duration: null, language: null })}
+            onClick={() => onChange({ genre: null, mood: null, weather: null, era: null, language: null })}
             className="text-xs text-stone-400 hover:text-amber-600 transition"
           >
             Clear all filters
