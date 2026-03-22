@@ -20,6 +20,7 @@ function filterSongs(filters: DiscoveryFilters): DiscoverySong[] {
     if (filters.weather && song.weather.indexOf(filters.weather) === -1 && song.weather.indexOf('Any') === -1) return false;
     if (filters.era && yearToEra(song.year) !== filters.era) return false;
     if (filters.language && song.language !== filters.language) return false;
+    if (filters.festival && (!song.festivals || song.festivals.indexOf(filters.festival) === -1)) return false;
     return true;
   });
 }

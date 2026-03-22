@@ -180,15 +180,17 @@ export const ALL_CATEGORIES: CategoryType[] = [
 ];
 
 // ---------- Song Discovery Filters ----------
-export type Genre = 'Bollywood' | 'Tollywood' | 'Carnatic' | 'Hindustani' | 'Ghazal' | 'Folk' | 'Devotional' | 'Western' | 'Patriotic' | 'Indie';
+export type Genre = 'Bollywood' | 'Tollywood' | 'Kollywood' | 'Carnatic' | 'Hindustani' | 'Ghazal' | 'Folk' | 'Devotional' | 'Western' | 'Patriotic' | 'Indie';
 export type SongMood = 'Happy' | 'Melancholic' | 'Romantic' | 'Peaceful' | 'Energetic' | 'Devotional' | 'Patriotic' | 'Nostalgic';
 export type Weather = 'Rainy' | 'Sunny' | 'Winter' | 'Any';
 export type Era = 'Golden' | '60s' | '70s' | '80s' | '90s' | '2000s' | '2010s+';
+export type Festival = 'Diwali' | 'Holi' | 'Navratri' | 'Sankranti' | 'Ugadi' | 'Pongal' | 'Christmas' | 'Eid' | 'Ganesh Chaturthi' | 'Independence Day' | 'Republic Day';
 
-export const ALL_GENRES: Genre[] = ['Bollywood', 'Tollywood', 'Carnatic', 'Hindustani', 'Ghazal', 'Folk', 'Devotional', 'Western', 'Patriotic', 'Indie'];
+export const ALL_GENRES: Genre[] = ['Bollywood', 'Tollywood', 'Kollywood', 'Carnatic', 'Hindustani', 'Ghazal', 'Folk', 'Devotional', 'Western', 'Patriotic', 'Indie'];
 export const ALL_MOODS: SongMood[] = ['Happy', 'Melancholic', 'Romantic', 'Peaceful', 'Energetic', 'Devotional', 'Patriotic', 'Nostalgic'];
 export const ALL_WEATHERS: Weather[] = ['Rainy', 'Sunny', 'Winter', 'Any'];
 export const ALL_ERAS: Era[] = ['Golden', '60s', '70s', '80s', '90s', '2000s', '2010s+'];
+export const ALL_FESTIVALS: Festival[] = ['Diwali', 'Holi', 'Navratri', 'Sankranti', 'Ugadi', 'Pongal', 'Christmas', 'Eid', 'Ganesh Chaturthi', 'Independence Day', 'Republic Day'];
 
 export function yearToEra(year: number): Era {
   if (year < 1960) return 'Golden';
@@ -211,6 +213,7 @@ export interface DiscoverySong {
   genre: Genre;
   mood: SongMood;
   weather: Weather[];
+  festivals?: Festival[];  // which festivals this song fits
   personId?: string;  // links to SEED_PEOPLE for context-aware boosting
   reelFriendly: boolean;
   caption?: string;   // optional pre-built caption override
@@ -222,5 +225,6 @@ export interface DiscoveryFilters {
   weather: Weather | null;
   era: Era | null;
   language: Language | null;
+  festival: Festival | null;
 }
 
