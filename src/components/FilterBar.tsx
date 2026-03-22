@@ -59,53 +59,56 @@ export default function FilterBar({ filters, onChange, matchCount }: Props) {
 
   return (
     <div className="space-y-3">
-      {/* Genre */}
-      <div>
-        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Genre</p>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_GENRES.map(g => (
-            <Chip key={g} label={g} value={g} active={filters.genre === g} onClick={(v: Genre) => set({ genre: toggle(filters.genre, v) })} />
-          ))}
+      {/* Grid: 2-col on sm+, 1-col on mobile */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* Genre */}
+        <div className="rounded-lg bg-stone-50 p-3">
+          <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Genre</p>
+          <div className="flex flex-wrap gap-1.5">
+            {ALL_GENRES.map(g => (
+              <Chip key={g} label={g} value={g} active={filters.genre === g} onClick={(v: Genre) => set({ genre: toggle(filters.genre, v) })} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Mood */}
-      <div>
-        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Mood</p>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_MOODS.map(m => (
-            <Chip key={m} label={`${MOOD_ICONS[m]} ${m}`} value={m} active={filters.mood === m} onClick={(v: SongMood) => set({ mood: toggle(filters.mood, v) })} />
-          ))}
+        {/* Mood */}
+        <div className="rounded-lg bg-stone-50 p-3">
+          <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Mood</p>
+          <div className="flex flex-wrap gap-1.5">
+            {ALL_MOODS.map(m => (
+              <Chip key={m} label={`${MOOD_ICONS[m]} ${m}`} value={m} active={filters.mood === m} onClick={(v: SongMood) => set({ mood: toggle(filters.mood, v) })} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Weather */}
-      <div>
-        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Weather / Season</p>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_WEATHERS.map(w => (
-            <Chip key={w} label={`${WEATHER_ICONS[w]} ${w}`} value={w} active={filters.weather === w} onClick={(v: Weather) => set({ weather: toggle(filters.weather, v) })} />
-          ))}
+        {/* Era */}
+        <div className="rounded-lg bg-stone-50 p-3">
+          <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Era</p>
+          <div className="flex flex-wrap gap-1.5">
+            {ALL_ERAS.map(e => (
+              <Chip key={e} label={ERA_LABELS[e]} value={e} active={filters.era === e} onClick={(v: Era) => set({ era: toggle(filters.era, v) })} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Era */}
-      <div>
-        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Era</p>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_ERAS.map(e => (
-            <Chip key={e} label={ERA_LABELS[e]} value={e} active={filters.era === e} onClick={(v: Era) => set({ era: toggle(filters.era, v) })} />
-          ))}
-        </div>
-      </div>
-
-      {/* Language */}
-      <div>
-        <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-1.5">Language</p>
-        <div className="flex flex-wrap gap-1.5">
-          {ALL_LANGUAGES.map(l => (
-            <Chip key={l} label={l} value={l} active={filters.language === l} onClick={(v: Language) => set({ language: toggle(filters.language, v) })} />
-          ))}
+        {/* Weather + Language — side by side in one cell */}
+        <div className="rounded-lg bg-stone-50 p-3 space-y-3">
+          <div>
+            <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Weather / Season</p>
+            <div className="flex flex-wrap gap-1.5">
+              {ALL_WEATHERS.map(w => (
+                <Chip key={w} label={`${WEATHER_ICONS[w]} ${w}`} value={w} active={filters.weather === w} onClick={(v: Weather) => set({ weather: toggle(filters.weather, v) })} />
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-stone-400 uppercase tracking-wide mb-2">Language</p>
+            <div className="flex flex-wrap gap-1.5">
+              {ALL_LANGUAGES.map(l => (
+                <Chip key={l} label={l} value={l} active={filters.language === l} onClick={(v: Language) => set({ language: toggle(filters.language, v) })} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

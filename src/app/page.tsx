@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useCallback } from 'react';
 import { WeekRange, ContextCard, DiscoveryFilters } from '@/lib/types';
@@ -54,10 +54,10 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="bg-gradient-to-r from-amber-600 to-orange-500 text-white">
-        <div className="max-w-3xl mx-auto px-4 py-5">
+        <div className="max-w-4xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-3xl">🎶</span>
+              <span className="text-3xl">ðŸŽ¶</span>
               <div>
                 <h1 className="text-xl font-bold tracking-tight">MyOctaves</h1>
                 <p className="text-amber-100 text-xs">Find Your Song. Play. Post.</p>
@@ -67,7 +67,7 @@ export default function Home() {
               onClick={toggleSettings}
               className="rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25 transition"
             >
-              ⚙️
+              âš™ï¸
             </button>
           </div>
         </div>
@@ -75,11 +75,11 @@ export default function Home() {
 
       {/* Hero */}
       <div className="bg-gradient-to-b from-amber-50 to-stone-50 border-b border-amber-100">
-        <div className="max-w-3xl mx-auto px-4 py-4 text-center">
+        <div className="max-w-4xl mx-auto px-4 py-4 text-center">
           <p className="text-sm text-stone-600 leading-relaxed">
             Pick a <span className="font-semibold text-amber-700">genre</span>,
             <span className="font-semibold text-amber-700"> mood</span>, or
-            <span className="font-semibold text-amber-700"> vibe</span> — get a song to play with a ready-to-post caption.
+            <span className="font-semibold text-amber-700"> vibe</span> â€” get a song to play with a ready-to-post caption.
             <br className="hidden sm:block" />
             Songs linked to <span className="font-semibold text-amber-700">this week&apos;s birthdays &amp; milestones</span> are boosted to the top.
           </p>
@@ -87,35 +87,35 @@ export default function Home() {
       </div>
 
       {/* Week Nav */}
-      <div className="max-w-3xl mx-auto w-full px-4 mt-4">
+      <div className="max-w-4xl mx-auto w-full px-4 mt-4">
         <WeekNav week={week} onChange={setWeek} />
       </div>
 
       {/* Settings */}
       {showSettings && SettingsPanel && (
-        <div className="max-w-3xl mx-auto w-full px-4 mt-4">
+        <div className="max-w-4xl mx-auto w-full px-4 mt-4">
           <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-semibold text-stone-700">⚙️ Preferences</h2>
-              <button onClick={toggleSettings} className="text-stone-400 hover:text-stone-600 text-sm">✕</button>
+              <h2 className="text-sm font-semibold text-stone-700">âš™ï¸ Preferences</h2>
+              <button onClick={toggleSettings} className="text-stone-400 hover:text-stone-600 text-sm">âœ•</button>
             </div>
             <SettingsPanel onSave={refreshContext} />
           </div>
         </div>
       )}
 
-      <main className="max-w-3xl mx-auto w-full px-4 py-5 flex-1 space-y-6">
+      <main className="max-w-4xl mx-auto w-full px-4 py-5 flex-1 space-y-6">
         {/* FILTERS */}
         <section>
           <button
             onClick={() => setShowFilters(!showFilters)}
             className="flex items-center gap-2 mb-3 group"
           >
-            <span className="text-lg">🎛️</span>
+            <span className="text-lg">ðŸŽ›ï¸</span>
             <h2 className="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition">
               Filter &amp; Discover
             </h2>
-            <span className="text-xs text-stone-400">{showFilters ? '▾' : '▸'}</span>
+            <span className="text-xs text-stone-400">{showFilters ? 'â–¾' : 'â–¸'}</span>
           </button>
           {showFilters && (
             <div className="rounded-xl bg-white border border-stone-200 p-4 shadow-sm">
@@ -127,10 +127,10 @@ export default function Home() {
         {/* SONG RESULTS */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-lg">💡</span>
+            <span className="text-lg">ðŸ’¡</span>
             <div>
               <h2 className="text-sm font-semibold text-stone-700">What to Play</h2>
-              <p className="text-xs text-stone-400">Tap any card to see its caption • ⭐ = relevant this week</p>
+              <p className="text-xs text-stone-400">Tap any card to see its caption â€¢ â­ = relevant this week</p>
             </div>
           </div>
           <SongResults results={results} />
@@ -142,11 +142,11 @@ export default function Home() {
             onClick={() => setShowContext(!showContext)}
             className="flex items-center gap-2 mb-3 group"
           >
-            <span className="text-lg">🎵</span>
+            <span className="text-lg">ðŸŽµ</span>
             <h2 className="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition">
               Why This Week Is Special
             </h2>
-            <span className="text-xs text-stone-400">{showContext ? '▾' : '▸'}</span>
+            <span className="text-xs text-stone-400">{showContext ? 'â–¾' : 'â–¸'}</span>
             <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">{cards.length}</span>
           </button>
           {showContext && <ContextPanel cards={cards} />}
@@ -155,7 +155,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center py-4 text-xs text-stone-400 border-t border-stone-200">
-        <p>MyOctaves — Find your song, every week</p>
+        <p>MyOctaves â€” Find your song, every week</p>
         <p className="mt-1 text-stone-300">For musicians, content creators &amp; music lovers</p>
       </footer>
     </div>
