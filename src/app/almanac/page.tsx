@@ -261,7 +261,8 @@ export default function AlmanacPage() {
       </main>
 
       <footer className="text-center py-5 text-xs text-slate-400">
-        MyOctaves Musical Almanac &#x2022; {allEntries.length} dates curated
+        <p>MyOctaves Musical Almanac &#x2022; {allEntries.length} dates curated</p>
+        <p className="mt-1">Built by Sivakanth</p>
       </footer>
     </div>
   );

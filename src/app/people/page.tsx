@@ -279,7 +279,8 @@ export default function PeoplePage() {
       </main>
 
       <footer className="text-center py-5 text-xs text-slate-400">
-        MyOctaves Musical Legends &#x2022; {SEED_PEOPLE.length} artists documented
+        <p>MyOctaves Musical Legends &#x2022; {SEED_PEOPLE.length} artists documented</p>
+        <p className="mt-1">Built by Sivakanth</p>
       </footer>
     </div>
   );

@@ -177,6 +177,7 @@ export default function DiscoverPage() {
       <footer className="text-center py-5 text-xs text-slate-400 border-t border-slate-100">
         <p>MyOctaves &mdash; Find our song, every week</p>
         <p className="mt-1 text-slate-300">For musicians, content creators &amp; music lovers</p>
+        <p className="mt-1">Built by Sivakanth</p>
       </footer>
     </div>
   );
