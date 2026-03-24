@@ -112,7 +112,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="text-center py-5 text-xs text-slate-400 border-t border-slate-100">
         <p>MyOctaves &mdash; For musicians, content creators &amp; music lovers</p>
-        <p className="mt-1">Built by Sivakanth</p>
+        <p className="mt-1">Built by <a href="https://sivakanth.vercel.app" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-700 underline transition">Sivakanth Badigenchala</a></p>
       </footer>
     </div>
   );

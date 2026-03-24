@@ -262,7 +262,7 @@ export default function AlmanacPage() {
 
       <footer className="text-center py-5 text-xs text-slate-400">
         <p>MyOctaves Musical Almanac &#x2022; {allEntries.length} dates curated</p>
-        <p className="mt-1">Built by Sivakanth</p>
+        <p className="mt-1">Built by <a href="https://sivakanth.vercel.app" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-700 underline transition">Sivakanth Badigenchala</a></p>
       </footer>
     </div>
   );
