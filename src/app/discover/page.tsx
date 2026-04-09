@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { WeekRange, ContextCard, DiscoveryFilters } from '@/lib/types';
 import { thisWeek } from '@/lib/dateUtils';
@@ -19,6 +19,7 @@ export default function DiscoverPage() {
   const [filters, setFilters] = useState<DiscoveryFilters>(EMPTY_FILTERS);
   const [results, setResults] = useState<DiscoveryResult[]>([]);
   const [matchCount, setMatchCount] = useState(0);
+  const [search, setSearch] = useState('');
   const [showFilters, setShowFilters] = useState(true);
   const [showContext, setShowContext] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -38,6 +39,17 @@ export default function DiscoverPage() {
 
   useEffect(() => { refreshContext(); }, [refreshContext]);
   useEffect(() => { refreshSongs(); }, [refreshSongs]);
+
+  const filteredResults = useMemo(() => {
+    if (!search.trim()) return results;
+    const q = search.toLowerCase();
+    return results.filter(r =>
+      r.song.title.toLowerCase().includes(q) ||
+      (r.song.film ?? '').toLowerCase().includes(q) ||
+      r.song.artist.toLowerCase().includes(q) ||
+      (r.song.composer ?? '').toLowerCase().includes(q)
+    );
+  }, [results, search]);
 
   function handleFilterChange(f: DiscoveryFilters) {
     setFilters(f);
@@ -108,6 +120,20 @@ export default function DiscoverPage() {
         </div>
       </div>
 
+      {/* Search */}
+      <div className="max-w-5xl mx-auto w-full px-4 mt-4">
+        <div className="relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">&#x1F50D;</span>
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search by song title, film, artist, composer..."
+            className="w-full rounded-xl border border-slate-200 bg-white/70 backdrop-blur-sm pl-9 pr-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/40 focus:border-yellow-500/40 transition shadow-sm"
+          />
+        </div>
+      </div>
+
       {/* Week Nav */}
       <div className="max-w-5xl mx-auto w-full px-4 mt-4">
         <WeekNav week={week} onChange={setWeek} />
@@ -153,7 +179,7 @@ export default function DiscoverPage() {
               <p className="text-xs text-slate-400">Tap any card to see its caption &#x2022; &#x2B50; = relevant this week</p>
             </div>
           </div>
-          <SongResults results={results} />
+          <SongResults results={filteredResults} />
         </section>
 
         {/* CONTEXT (collapsible) */}
