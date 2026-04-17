@@ -133,6 +133,7 @@ export const SEED_PEOPLE: Person[] = [
   {
     id: 'asha', name: 'Asha Bhosle',
     role: ['singer'], birthDate: '09-08', birthYear: 1933,
+    deathDate: '04-13', deathYear: 2026,
     languages: ['Hindi'],
     knownFor: 'Versatile queen of playback with a career spanning 8 decades',
     achievements: ['Dadasaheb Phalke Award (2000)', 'Padma Vibhushan (2008)', 'Guinness World Record — most recorded artist', '12,000+ songs', 'Grammy nomination for Legacy'],
@@ -772,10 +773,32 @@ export const SEED_SPECIAL_DAYS: SpecialDay[] = [
   { id: 'ugadi', name: 'Ugadi / Gudi Padwa', date: '03-30', month: 3, day: 30, description: 'Telugu & Kannada New Year (approx)', scope: 'regional', tags: ['festive'], suggestedThemes: ['Festive Telugu/Kannada songs'] },
 
   // April
+  { id: 'april_fools', name: "April Fool's Day", date: '04-01', month: 4, day: 1, description: 'Day of pranks and humour worldwide', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Funny and playful songs'] },
+  { id: 'odisha_day', name: 'Odisha Foundation Day', date: '04-01', month: 4, day: 1, description: 'Celebrates the formation of Odisha state in 1936', scope: 'regional', tags: ['patriotic', 'folk'], suggestedThemes: ['Odia patriotic songs'] },
+  { id: 'autism_day', name: 'World Autism Awareness Day', date: '04-02', month: 4, day: 2, description: 'UN day raising awareness about autism spectrum', scope: 'international', tags: ['peace'], suggestedThemes: ['Inclusive and gentle melodies'] },
+  { id: 'mine_awareness_day', name: 'International Day of Mine Awareness', date: '04-04', month: 4, day: 4, description: 'UN day raising awareness about landmines and explosive remnants', scope: 'international', tags: ['peace'], suggestedThemes: ['Songs of peace and safety'] },
+  { id: 'maritime_day_india', name: 'National Maritime Day', date: '04-05', month: 4, day: 5, description: 'India celebrates its maritime heritage and shipping industry', scope: 'india', tags: ['patriotic'], suggestedThemes: ['Sea and voyage songs'] },
+  { id: 'easter', name: 'Easter Sunday', date: '04-05', month: 4, day: 5, description: 'Christian celebration of the resurrection of Jesus Christ', scope: 'international', tags: ['devotional', 'festive'], suggestedThemes: ['Devotional and spring melodies'] },
   { id: 'world_health_day', name: 'World Health Day', date: '04-07', month: 4, day: 7, description: 'WHO global health awareness day', scope: 'international', tags: ['peace'], suggestedThemes: ['Healing melodies'] },
+  { id: 'homoeopathy_day', name: 'World Homoeopathy Day', date: '04-10', month: 4, day: 10, description: 'Celebrating the birth anniversary of Dr. Samuel Hahnemann, founder of homoeopathy', scope: 'international', tags: ['peace'], suggestedThemes: ['Healing and wellness melodies'] },
+  { id: 'siblings_day', name: 'National Siblings Day', date: '04-10', month: 4, day: 10, description: 'Celebrating the bond between siblings', scope: 'international', tags: ['upbeat', 'melody'], suggestedThemes: ['Songs about brothers and sisters'] },
+  { id: 'safe_motherhood_day', name: 'National Safe Motherhood Day', date: '04-11', month: 4, day: 11, description: 'India raises awareness about maternal health and care', scope: 'india', tags: ['melody', 'devotional'], suggestedThemes: ['Songs for mothers'] },
+  { id: 'jallianwala_bagh', name: 'Jallianwala Bagh Remembrance Day', date: '04-13', month: 4, day: 13, description: 'Remembering the Jallianwala Bagh massacre of 1919 in Amritsar', scope: 'india', tags: ['patriotic', 'sad'], suggestedThemes: ['Patriotic remembrance songs'] },
+  { id: 'ambedkar_jayanti', name: 'Dr. B.R. Ambedkar Jayanti', date: '04-14', month: 4, day: 14, description: 'Birth anniversary of Dr. B.R. Ambedkar, architect of the Indian Constitution', scope: 'india', tags: ['patriotic'], suggestedThemes: ['Songs of equality and justice'] },
+  { id: 'puthandu_vishu', name: 'Puthandu / Vishu', date: '04-14', month: 4, day: 14, description: 'Tamil and Kerala New Year celebrations', scope: 'regional', tags: ['festive'], suggestedThemes: ['Tamil and Malayalam festive songs'] },
+  { id: 'bengali_new_year', name: 'Bengali New Year / Bihu', date: '04-15', month: 4, day: 15, description: 'Bengali New Year (Pohela Boishakh) and Assamese Bihu festival', scope: 'regional', tags: ['festive', 'folk'], suggestedThemes: ['Bengali and Assamese folk songs'] },
+  { id: 'haemophilia_day', name: 'World Haemophilia Day', date: '04-17', month: 4, day: 17, description: 'Raising awareness about haemophilia and other bleeding disorders', scope: 'international', tags: ['peace'], suggestedThemes: ['Songs of strength and hope'] },
+  { id: 'heritage_day', name: 'World Heritage Day', date: '04-18', month: 4, day: 18, description: 'UNESCO day promoting cultural heritage and historic sites worldwide', scope: 'international', tags: ['classical', 'folk'], suggestedThemes: ['Heritage and classical melodies'] },
+  { id: 'creativity_day', name: 'World Creativity and Innovation Day', date: '04-21', month: 4, day: 21, description: 'UN day encouraging creative thinking and innovation', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Innovative and experimental music'] },
+  { id: 'civil_service_day', name: 'National Civil Service Day', date: '04-21', month: 4, day: 21, description: 'India honours civil servants for their contributions to governance', scope: 'india', tags: ['patriotic'], suggestedThemes: ['Songs of service and duty'] },
   { id: 'earth_day', name: 'Earth Day', date: '04-22', month: 4, day: 22, description: 'Annual event supporting environmental protection', scope: 'international', tags: ['peace', 'folk'], suggestedThemes: ['Nature songs'] },
   { id: 'world_book_day', name: 'World Book Day', date: '04-23', month: 4, day: 23, description: 'UNESCO day promoting reading and publishing', scope: 'international', tags: ['peace'], suggestedThemes: ['Literary-inspired music'] },
+  { id: 'panchayati_raj_day', name: 'National Panchayati Raj Day', date: '04-24', month: 4, day: 24, description: 'India celebrates grassroots democracy and local self-governance', scope: 'india', tags: ['patriotic', 'folk'], suggestedThemes: ['Songs of rural India'] },
+  { id: 'malaria_day', name: 'World Malaria Day', date: '04-25', month: 4, day: 25, description: 'Global awareness day for malaria prevention and control', scope: 'international', tags: ['peace'], suggestedThemes: ['Songs of resilience'] },
+  { id: 'ip_day', name: 'World Intellectual Property Day', date: '04-26', month: 4, day: 26, description: 'WIPO day celebrating the role of intellectual property in innovation', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Songs celebrating creativity'] },
   { id: 'world_dance_day', name: 'International Dance Day', date: '04-29', month: 4, day: 29, description: 'Celebrating dance as an art form', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Dance numbers'] },
+  { id: 'jazz_day', name: 'International Jazz Day', date: '04-30', month: 4, day: 30, description: 'UNESCO day celebrating jazz and its role in uniting people', scope: 'international', tags: ['melody', 'classical'], suggestedThemes: ['Jazz-inspired and improvisational melodies'] },
+  { id: 'shelter_pet_day', name: 'National Adopt a Shelter Pet Day', date: '04-30', month: 4, day: 30, description: 'Encouraging pet adoption from shelters', scope: 'international', tags: ['upbeat', 'peace'], suggestedThemes: ['Feel-good and heartwarming songs'] },
 
   // May
   { id: 'labour_day', name: 'International Labour Day', date: '05-01', month: 5, day: 1, description: 'Workers Day worldwide', scope: 'international', tags: ['upbeat'], suggestedThemes: ['Songs of the working spirit'] },
@@ -846,6 +869,7 @@ export const SEED_MUSIC_HISTORY: HistoricEvent[] = [
 
   // April
   { id: 'mh_sgt_pepper', title: 'Beatles complete Sgt. Pepper\'s final session', date: '04-01', year: 1967, description: 'The Beatles held their last recording session for Sgt. Pepper\'s Lonely Hearts Club Band, one of the most influential albums ever.', scope: 'world', tags: ['retro'] },
+  { id: 'mh_asha_passes', title: 'Asha Bhosle passes away', date: '04-13', year: 2026, description: 'The legendary playback singer Asha Bhosle, with 12,000+ songs across 8 decades and a Guinness World Record, left an immortal legacy in Indian music.', scope: 'india', tags: ['melody', 'sad'] },
   { id: 'mh_mayabazar', title: 'Mayabazar released', date: '03-27', year: 1957, description: 'One of the greatest Indian films, with Ghantasala\'s legendary music, released in Telugu & Tamil.', scope: 'india', tags: ['classical', 'melody'] },
   { id: 'mh_mtv_unplugged', title: 'MTV Unplugged premieres', date: '11-26', year: 1989, description: 'MTV Unplugged debuted, bringing acoustic performances to mainstream audiences.', scope: 'world', tags: ['melody'] },
 
